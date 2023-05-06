@@ -1,0 +1,56 @@
+@import "../../../style/variables.scss";
+
+.page404{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.page404 img{
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.page404 p{
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+}
+
+.page404 a{
+  display: block;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; */
+  padding: 10px 24px;
+  
+  /* width: 164px;
+  height: 42px; */
+  
+  /* Blue 100 */
+  gap: 10px; 
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 155%;
+  font-weight: 600;
+  border-radius: 8px;
+  color: $blue-500-main;
+  background: $blue-100;
+
+  
+  /* Inside auto layout */
+  
+  /* flex: none;
+  order: 2;
+  flex-grow: 0; */
+  &:hover {
+    text-decoration: none;
+    background: $grey-100;
+    color: $main-color;
+  }
+}
+

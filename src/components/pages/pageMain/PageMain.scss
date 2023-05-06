@@ -1,0 +1,24 @@
+@import "../../../style/variables.scss";
+
+.page-main{
+  max-width: 100%;
+  width: 960px;
+margin: 0 auto;
+
+&__container{
+  display: flex;
+  flex-direction: row;
+  align-items:flex-end;
+  // align-items: center;
+  gap: 32px;
+  
+};
+&__filter-form{
+  width: 30%;
+}
+&__content{
+  width: 70%;
+}
+
+
+}

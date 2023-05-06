@@ -1,0 +1,21 @@
+.logo {
+  display: flex;
+  // position: absolute;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.logo img {
+  display: block;
+  width: 100%;
+  height: fit-content;
+}
+.logo p {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+}
+//  .mantine-Container-root > .logo{
+//     position: absolute;
+//     left: 0;
+//  }
