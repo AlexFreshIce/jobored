@@ -1,0 +1,38 @@
+@import "../../style/variables.scss";
+
+.vacancy {
+  &__item {
+    padding: 24px;
+    position: relative;
+    list-style-type: none;
+    border: 1px solid $grey-200;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  &__title {
+    color: $blue-500-main;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 12px;
+  }
+  &__text-salary {
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  &__text-employment {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  &__text-dot {
+    color:$grey-600;
+    display: inline;
+    padding: 0 12px;
+    // font-size: 30px;
+    //    line-height: 16px;
+    //  list-style-type: circle;
+    &__location {
+    }
+  }
+}

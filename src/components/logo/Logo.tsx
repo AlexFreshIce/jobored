@@ -1,5 +1,5 @@
 import "./Logo.scss"
-import logo from "../../resources/img/logo.png"
+import logo from "../../resources/img/logo.svg"
 
 const Logo = () => {
   
