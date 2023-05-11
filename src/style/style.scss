@@ -1,6 +1,5 @@
 @import "./variables";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-// @import "./button";
 
 * {
   font-family: "Inter", sans-serif;
@@ -11,9 +10,7 @@
 }
 
 ul,
-li,
-dl {
-  // list-style-type: none;
+li{
   margin: 0;
   padding: 0;
 }
@@ -32,21 +29,21 @@ p {
   padding: 0;
 }
 
-button {
-  color: $white;
+.mantine-Button-root {
   background-color: $blue-500-main;
-  padding: 4px 20px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
+  height: 32px;
   &:hover {
     background-color: $blue-400;
   }
   &:active {
     background-color: $blue-600;
   }
+}
+.mantine-Button-label {
+  color: $white;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .mantine-ActionIcon-root {
@@ -102,11 +99,3 @@ button {
 .mantine-NumberInput-controlDown svg:active {
   stroke: $blue-500-main;
 }
-// .mantine-NumberInput-input:hover ~ .mantine-NumberInput-rightSection svg,
-// .mantine-Select-input:hover ~ .mantine-Input-rightSection svg {
-//   stroke: $blue-400;
-// }
-// .mantine-NumberInput-input:focus ~ .mantine-NumberInput-rightSection svg,
-// .mantine-Select-input:focus ~ .mantine-Input-rightSection svg {
-//   stroke: $blue-500-main;
-// }

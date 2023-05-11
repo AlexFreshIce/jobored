@@ -1,7 +1,8 @@
 @import "../../style/variables.scss";
 
 .header {
-  position: "relative";
+  margin-bottom: 40px;
+  position: relative;
   z-index: 1;
 
   &__dropdown {
@@ -56,15 +57,18 @@
 }
 
 @media screen and (max-width: 839px) {
-  .header__group{
+  .header__group {
     margin: 0;
     justify-content: center;
   }
 }
 
 @media screen and (max-width: 639px) {
-  .header__group {
-    display: none;
+  .header {
+    margin-bottom: 16px;
+    &__group {
+      display: none;
+    }
   }
 }
 @media screen and (min-width: 640px) {

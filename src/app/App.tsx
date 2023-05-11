@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AppHeader } from "../appHeader/AppHeader";
-import { Loader } from '@mantine/core';
-import {PageMain, PageFavorites, Page404} from "../../components/pages"
+import { AppHeader } from "../components/header/Header";
+import { Loader } from "@mantine/core";
+import {MainPage, FavoritesPage, Error404Page}from "../pages";
 
 function App() {
   const Links: { link: string; label: string }[] = [
@@ -16,11 +16,11 @@ function App() {
         <main>
           <Suspense fallback={<Loader size="xl" />}>
             <Routes>
-              <Route path="/" element={<PageMain />} />
-              <Route path="/favorites" element={<PageFavorites/>} />
+              <Route path="/" element={<MainPage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
               {/* 
                         <Route path="/vacancy/:id" element={ <SinglePage Component={SingleCharacterLayout} dataType='character'/>} /> */}
-              <Route path="*" element={<Page404 />} />
+              <Route path="*" element={<Error404Page />} />
             </Routes>
           </Suspense>
         </main>

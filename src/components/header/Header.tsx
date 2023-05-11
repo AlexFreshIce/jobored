@@ -9,7 +9,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { NavLink } from "react-router-dom";
 import Logo from "../logo/Logo";
-import "./AppHeader.scss";
+import "./Header.scss";
 
 // const HEADER_HEIGHT = rem(60);
 
@@ -34,7 +34,7 @@ export function AppHeader({ links }: HeaderResponsiveProps) {
   ));
 
   return (
-    <Header height={84} mb={40} className={"header"}>
+    <Header height={84} className={"header"}>
       <Container className={"header__container"} size={1116}>
         <Logo />
         <Group spacing={60} className={"header__group"}>

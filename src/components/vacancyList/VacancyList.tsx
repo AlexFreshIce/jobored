@@ -1,5 +1,5 @@
 import "./VacancyList.scss";
-import VacancyListItem from "../VacancyListItem/VacancyListItem";
+import VacancyListItem from "../vacancyListItem/VacancyListItem";
 
 const VacancyList = () => {
   return(

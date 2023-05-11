@@ -1,5 +1,5 @@
-// import { Link } from "react-router-dom"
-import './PageFavorites.scss';
+import './FavoritesPage.scss';
+
 const PageFavorites = () => {
   return (
     <div className="page-main">

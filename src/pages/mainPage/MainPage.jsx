@@ -1,7 +1,8 @@
-import "./PageMain.scss";
-import Search from "../../search/Search";
-import VacancyList from "../../vacancyList/VacancyList";
-import Filter from "../../filter/Filter";
+import Filter from "../../components/filter/Filter";
+import Search from "../../components/search/Search";
+import VacancyList from "../../components/vacancyList/VacancyList";
+
+import "./MainPage.scss";
 
 const PageMain = () => {
   return (
