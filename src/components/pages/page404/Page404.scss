@@ -21,17 +21,7 @@
 
 .page404 a{
   display: block;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px; */
   padding: 10px 24px;
-  
-  /* width: 164px;
-  height: 42px; */
-  
-  /* Blue 100 */
   gap: 10px; 
   text-decoration: none;
   font-size: 14px;
@@ -40,13 +30,6 @@
   border-radius: 8px;
   color: $blue-500-main;
   background: $blue-100;
-
-  
-  /* Inside auto layout */
-  
-  /* flex: none;
-  order: 2;
-  flex-grow: 0; */
   &:hover {
     text-decoration: none;
     background: $grey-100;

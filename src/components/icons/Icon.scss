@@ -1,10 +1,16 @@
 .icon{
-  
-  
+   
   &-location{
     margin-right: 12px;
     vertical-align:middle;
     width: 16px;
     height: 16px;
+
   }
+  &-downArrow{
+    vertical-align:middle;
+    width: 14px;
+    height: 7px;
+  }
+  
 }

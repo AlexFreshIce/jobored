@@ -1,7 +1,7 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppHeader } from "../appHeader/AppHeader";
-import Spinner from "../spinner/Spinner";
+import { Loader } from '@mantine/core';
 import {PageMain, PageFavorites, Page404} from "../../components/pages"
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <div className="app">
         <AppHeader links={Links} />
         <main>
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Loader size="xl" />}>
             <Routes>
               <Route path="/" element={<PageMain />} />
               <Route path="/favorites" element={<PageFavorites/>} />

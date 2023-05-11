@@ -1,26 +1,46 @@
 @import "../../../style/variables.scss";
 
-.page-main{
+.page-main {
   max-width: 100%;
-  width: 960px;
-margin: 0 auto;
-
-&__container{
-  display: flex;
-  flex-direction: row;
-  align-items:flex-end;
-  // align-items: center;
-  gap: 32px;
- 
-};
-&__filter-form{
-  width: 30%;
-  padding: 0 8px;
+  width: 1116px;
+  margin: 0 auto;
+  padding: 0 16px;
+  &__container {
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+  }
+  &__filter {
+    width: 35%;
+    min-width: 280px;
+    padding: 20px;
+    border: 1px solid $grey-200;
+    border-radius: 8px;
+    position: relative;
+  }
+  &__content {
+    width: 65%;
+  }
 }
-&__content{
-  width: 70%;
-  padding: 0 8px;
+
+@media screen and (max-width: 839px) {
+  .page-main {
+    &__container {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    &__filter {
+      width: 100%;
+    }
+    &__content {
+      width: 100%;
+    }
+  }
 }
 
-
+@media screen and (max-width: 479px) {
+  .page-main {
+    padding: 0 8px;
+  }
 }

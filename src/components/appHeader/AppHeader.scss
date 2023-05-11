@@ -1,0 +1,75 @@
+@import "../../style/variables.scss";
+
+.header {
+  position: "relative";
+  z-index: 1;
+
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 83px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-width: 0;
+    border: none;
+    overflow: hidden;
+  }
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  &__group {
+    flex: 1;
+    margin-left: 30%;
+  }
+  &__link {
+    display: block;
+    text-decoration: none;
+    color: $main-color;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    &:hover {
+      color: $blue-400;
+    }
+    &-active {
+      color: $blue-500-main;
+    }
+  }
+}
+.mantine-Paper-root > .header__link {
+  padding: 10px;
+  &:first-child {
+    padding-top: 20px;
+  }
+  &:last-child {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 839px) {
+  .header__group{
+    margin: 0;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .header__group {
+    display: none;
+  }
+}
+@media screen and (min-width: 640px) {
+  .header__dropdown,
+  .header__burger {
+    display: none;
+  }
+}

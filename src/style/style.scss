@@ -7,7 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-// color:$main-color;
+  color: $main-color;
 }
 
 ul,
@@ -27,19 +27,12 @@ h6 {
   margin: 0;
 }
 
-
 p {
   margin: 0;
   padding: 0;
 }
 
-// .app {
-//   max-width: 1100px;
-//   margin: 0 auto;
-//   padding: 30px;
-// }
-
-button{
+button {
   color: $white;
   background-color: $blue-500-main;
   padding: 4px 20px;
@@ -48,10 +41,72 @@ button{
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  &:hover{
+  &:hover {
     background-color: $blue-400;
   }
-  &:active{
+  &:active {
     background-color: $blue-600;
   }
 }
+
+.mantine-ActionIcon-root {
+  &:hover {
+    background: none;
+  }
+  &:active {
+    background: none;
+  }
+}
+
+.mantine-ActionIcon-root > svg {
+  stroke: $grey-500;
+  &:hover {
+    stroke: $blue-400;
+  }
+  &:active {
+    stroke: $blue-500-main;
+    fill: $blue-500-main;
+  }
+}
+
+.mantine-ActionIcon-root > p {
+  color: $grey-500;
+  &:hover {
+    color: $blue-400;
+  }
+  &:active {
+    color: $blue-500-main;
+  }
+}
+
+.mantine-NumberInput-control {
+  border: none;
+}
+
+.mantine-NumberInput-controlUp:hover,
+.mantine-NumberInput-controlDown:hover {
+  background: none !important;
+}
+
+.mantine-NumberInput-input:hover ~ .mantine-NumberInput-rightSection svg,
+.mantine-Select-input:hover ~ .mantine-Input-rightSection svg,
+// .mantine-Input-rightSection svg:hover,
+.mantine-NumberInput-controlUp svg:hover,
+.mantine-NumberInput-controlDown svg:hover {
+  stroke: $blue-400;
+}
+.mantine-NumberInput-input:focus ~ .mantine-NumberInput-rightSection svg,
+.mantine-Select-input:focus ~ .mantine-Input-rightSection svg,
+// .mantine-Input-rightSection svg:active,
+.mantine-NumberInput-controlUp svg:active,
+.mantine-NumberInput-controlDown svg:active {
+  stroke: $blue-500-main;
+}
+// .mantine-NumberInput-input:hover ~ .mantine-NumberInput-rightSection svg,
+// .mantine-Select-input:hover ~ .mantine-Input-rightSection svg {
+//   stroke: $blue-400;
+// }
+// .mantine-NumberInput-input:focus ~ .mantine-NumberInput-rightSection svg,
+// .mantine-Select-input:focus ~ .mantine-Input-rightSection svg {
+//   stroke: $blue-500-main;
+// }
