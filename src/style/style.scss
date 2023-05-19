@@ -29,6 +29,10 @@ p {
   padding: 0;
 }
 
+.mantine-Select-input{
+  text-overflow: ellipsis;
+}
+
 .mantine-Button-root {
   background-color: $blue-500-main;
   height: 32px;
@@ -39,6 +43,7 @@ p {
     background-color: $blue-600;
   }
 }
+
 .mantine-Button-label {
   color: $white;
   font-weight: 500;

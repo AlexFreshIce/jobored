@@ -2,13 +2,14 @@ import { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppHeader } from "../components/header/Header";
 import { Loader } from "@mantine/core";
-import {MainPage, FavoritesPage, Error404Page}from "../pages";
+import { MainPage, FavoritesPage, Error404Page } from "../pages";
 
 function App() {
   const Links: { link: string; label: string }[] = [
     { link: "/", label: "Поиск Вакансий" },
     { link: "/favorites", label: "Избранное" },
   ];
+
   return (
     <Router>
       <div className="app">
