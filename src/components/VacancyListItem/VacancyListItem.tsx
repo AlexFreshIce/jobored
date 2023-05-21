@@ -1,7 +1,7 @@
 import "./VacancyListItem.scss";
-import { ActionIcon } from "@mantine/core";
-import { IconMapPin, IconStar } from "@tabler/icons-react";
-import { salary } from "../../utils";
+import { Link } from "react-router-dom";
+import VacancyHeader from "../vacancyHeader/VacancyHeader";
+import ButtonFavorite from "../buttonFavorite/ButtonFavorite";
 
 // export interface IVacancyListItem {
 //   profession: string;
@@ -11,33 +11,28 @@ import { salary } from "../../utils";
 //   currency: string;
 // }
 
-const VacancyListItem = ({
-  profession,
-  firm_name,
-  town,
-  type_of_work,
-  payment_from,
-  payment_to,
-  currency,
-}: any) => {
+const VacancyListItem = (props: any) => {
 
 
-  const resoultSalary = salary(payment_from, payment_to, currency);
+  // const displayContent = isList ? View() : <Spinner />;
+
+  // const liContainer = () => {
+  //   return (
+  //     <li className="vacancy__item">
+  //       <Link to={`/${id}`}></Link>
+  //       <ActionIcon size={22} className="vacancy__btn-favorite">
+  //         <IconStar />
+  //       </ActionIcon>
+  //     </li>
+  //   );
+  // };
 
   return (
     <li className="vacancy__item">
-      <h3 className="vacancy__title">{profession}</h3>
-      {/* <p className="vacancy__text-firm">{firm_name} </p> */}
-      <p className="vacancy__text-salary">{resoultSalary}</p>
-      <p className="vacancy__text-dot">•</p>
-      <p className="vacancy__text-employment">{type_of_work.title}</p>
-      <p className="vacancy__text-location">
-        <IconMapPin size={20} />
-        {town.title}
-      </p>
-      <ActionIcon size={22} className="vacancy__btn-favorite">
-        <IconStar />
-      </ActionIcon>
+      <Link to={`/${props.id}`}>
+     < VacancyHeader {...props}/>
+      </Link>
+    <ButtonFavorite/>
     </li>
   );
 };

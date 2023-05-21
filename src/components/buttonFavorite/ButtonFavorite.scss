@@ -1,0 +1,10 @@
+@import "../../style/variables.scss";
+
+.vacancy {
+  &__btn-favorite {
+    display: inline-block;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+  }
+}

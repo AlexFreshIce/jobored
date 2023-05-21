@@ -35,7 +35,7 @@ export function AppHeader({ links }: HeaderResponsiveProps) {
 
   return (
     <Header height={84} className={"header"}>
-      <Container className={"header__container"} size={1116}>
+      <Container className={"header__container"} size={1148}>
         <Logo />
         <Group spacing={60} className={"header__group"}>
           {items}

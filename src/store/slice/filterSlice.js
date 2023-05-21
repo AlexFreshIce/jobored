@@ -109,3 +109,4 @@ export const selectToValue = (state) => state.filterSlice.filter.payment_to;
 export const selectCatalogues = (state) => state.filterSlice.filter.catalogues;
 export const selectKeyword = (state) => state.filterSlice.filter.keyword;
 export const selectCataloguesArr = (state) => state.filterSlice.cataloguesArr;
+export const selectIsLoading = (state) => state.filterSlice.isLoading;

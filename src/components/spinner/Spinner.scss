@@ -1,0 +1,14 @@
+.spinner {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    width: 10%;
+    height: 10%;
+    max-width: 56px;
+    max-height: 56px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+}

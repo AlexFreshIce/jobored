@@ -1,5 +1,5 @@
 @import "./variables";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600&display=swap');
 
 * {
   font-family: "Inter", sans-serif;
@@ -29,13 +29,40 @@ p {
   padding: 0;
 }
 
-.mantine-Select-input{
-  text-overflow: ellipsis;
+// .mantine-Select-dropdown,
+// .mantine-Select-item,
+// .mantine-Select-nothingFound,
+// .mantine-Select-separator,
+// .mantine-Select-separatorLabel,
+// .mantine-Select-itemsWrapper,
+// .mantine-Select-wrapper,
+// .mantine-Select-icon,
+// .mantine-Select-input,
+// .mantine-Select-rightSection,
+// .mantine-Select-root,
+// .mantine-Select-label	,
+// .mantine-Select-error	,
+// .mantine-Select-description,
+// .mantine-Select-required,
+// .mantine-ScrollArea-scrollbar 
+// .mantine-Select-input,
+// .mantine-Select-item {
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+// }
+
+.mantine-Select-item:hover{
+  background-color: $blue-100
 }
+
+
+
+// .mantine-ScrollArea-viewport > div {
+//   display: block !important;
+// }
 
 .mantine-Button-root {
   background-color: $blue-500-main;
-  height: 32px;
   &:hover {
     background-color: $blue-400;
   }

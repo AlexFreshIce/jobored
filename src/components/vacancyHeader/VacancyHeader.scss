@@ -1,0 +1,59 @@
+@import "../../style/variables.scss";
+
+.vacancy {
+  &__header {
+    padding: 24px;
+    position: relative;
+    // list-style-type: none;
+    border: 1px solid $grey-200;
+    border-radius: 8px;
+    // margin-bottom: 16px;
+    // a{text-decoration: none;}
+  }
+  &__title {
+    color: $blue-500-main;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 12px;
+    max-width: 88%;
+  }
+  &__text-firm {
+    line-height: 24px;
+    margin-bottom: 12px;
+  }
+  &__text-salary {
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  &__text-employment {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  &__text-dot {
+    color: $grey-600;
+    display: inline;
+    padding: 0 12px;
+  }
+  &__text-location {
+    vertical-align: middle;
+    line-height: 20px;
+  }
+  &__text-location svg {
+    vertical-align: middle;
+    margin-right: 10px;
+    stroke: $grey-500;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .vacancy {
+    &__text-salary {
+      display: block;
+    }
+    &__text-dot {
+      padding: 0 15px 0 6px;
+    }
+  }
+}

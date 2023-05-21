@@ -6,10 +6,10 @@ import "./MainPage.scss";
 
 const PageMain = () => {
   return (
-    <div className="page-main">
-      <div className="page-main__container">
+    <div className="page">
+      <div className="page__container page__container--gap">
         <Filter />
-        <div className="page-main__content">
+        <div className="page__content">
           <Search />
           <VacancyList />
         </div>

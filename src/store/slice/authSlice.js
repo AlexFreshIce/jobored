@@ -28,6 +28,7 @@ export const loginUser = createAsyncThunk(
   async (arg, { getState }) => {
     const currentUser = getState().authSlice.currentUser;
     const loginURL = customURL(endpoints.AUTH.LOGIN, currentUser);
+
     try {
       const response = await fetch(loginURL, {
         method: "GET",
@@ -42,11 +43,12 @@ export const loginUser = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log(data);
+    
       localStorage.setItem("accessToken", data.access_token);
       localStorage.setItem("refreshToken", data.refresh_token);
 
       return data;
+      
     } catch (e) {
       throw e;
     }

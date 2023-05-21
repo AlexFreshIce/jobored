@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   loginUser,
   selectIsAuth,
-  selectAuthIsLoading,
+  // selectAuthIsLoading,
 } from "../../store/slice/authSlice";
 import {
-  selectVacancy,
-  selectVacancyIsLoading,
+  selectVacancies,
+  // selectVacancyIsLoading,
   getAllVacancies,
 } from "../../store/slice/vacancySlice";
-import { Loader } from "@mantine/core";
+import Spinner from "../spinner/Spinner";
 
 import VacancyListItem from "../vacancyListItem/VacancyListItem";
 
@@ -18,10 +18,10 @@ import "./VacancyList.scss";
 
 const VacancyList = () => {
   const isAuth = useSelector(selectIsAuth);
-  const isFilterChange = useSelector((state:any) => state.filterSlice.filter);
-  const vacancy = useSelector(selectVacancy);
-  const authIsLoading = useSelector(selectAuthIsLoading);
-  const vacancyIsLoading = useSelector(selectVacancyIsLoading);
+  const isFilterChange = useSelector((state: any) => state.filterSlice.filter);
+  const vacancies = useSelector(selectVacancies);
+  // const authIsLoading = useSelector(selectAuthIsLoading);
+  // const vacancyIsLoading = useSelector(selectVacancyIsLoading);
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
@@ -33,23 +33,19 @@ const VacancyList = () => {
     }
   }, [isAuth, isFilterChange]);
 
-  const renderVacancy = (vacancyArr: []) => {
-    if (!vacancyArr || vacancyArr.length === 0) {
+  const renderVacancies = (vacanciesArr: []) => {
+    if (!vacanciesArr || vacanciesArr.length === 0) {
       return <h4 className="vacancy__text-empty">Вакансий нет!</h4>;
     }
-    return vacancyArr.map(({ id, ...props }: { id: string }) => {
-      return <VacancyListItem key={id} {...props} />;
+    return vacanciesArr.map((props: { id: string }) => {
+      return <VacancyListItem key={props.id} {...props} />;
     });
   };
 
-  const displayContent =
-    authIsLoading || vacancyIsLoading ? (
-      <Loader className="vacancy__loader" />
-    ) : (
-      renderVacancy(vacancy)
-    );
 
-  return <ul>{displayContent}</ul>;
+  const displayContent = vacancies ? renderVacancies(vacancies) : <Spinner />;
+
+  return <ul className="vacancy__list">{displayContent}</ul>;
 };
 
 export default VacancyList;

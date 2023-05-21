@@ -12,6 +12,7 @@ export const endpoints = {
   },
   VACANCY: {
     SEARCH: "/2.0/vacancies/",
+    ID: "/2.0/vacancies/",
   },
   FILTER: {
     CATALOGUES: "/2.0/catalogues/"
@@ -19,13 +20,13 @@ export const endpoints = {
 };
 
 export const customURL = (endpoint, obj) => {
-  let customURL = API_URL + endpoint + "?";
+  let customURL = API_URL + endpoint;
   let isFirst = true;
   for (let objKey in obj) {
     if (!obj[objKey] || obj[objKey] === "" || obj[objKey] === "0") {
       continue;
     } else if (isFirst) {
-      customURL += `${objKey}=${obj[objKey]}`;
+      customURL += `?${objKey}=${obj[objKey]}`;
       isFirst = false;
     } else {
       customURL += `&${objKey}=${obj[objKey]}`;
