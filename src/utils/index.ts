@@ -21,15 +21,15 @@ export const salary = (
 
 export const changeFavoritesInLocalStorage = (
   action: string,
-  vacancy: {}|null,
-  id: string|null
+  vacancy: {} | null,
+  id: string | null
 ) => {
   const jsonString = localStorage.getItem("favoriteVacancies");
   const favoriteVacancies = jsonString ? JSON.parse(jsonString) : [];
   let newFavoriteVacancies = [];
   switch (action) {
     case "add":
-      newFavoriteVacancies = [...favoriteVacancies, vacancy ] 
+      newFavoriteVacancies = [...favoriteVacancies, vacancy];
       break;
     case "remove":
       newFavoriteVacancies = favoriteVacancies.filter(

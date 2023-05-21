@@ -16,21 +16,10 @@ import VacancyListItem from "../vacancyListItem/VacancyListItem";
 
 import "./VacancyList.scss";
 
-const VacancyList = () => {
-  const isAuth = useSelector(selectIsAuth);
-  const isFilterChange = useSelector((state: any) => state.filterSlice.filter);
-  const vacancies = useSelector(selectVacancies);
-  // const authIsLoading = useSelector(selectAuthIsLoading);
-  // const vacancyIsLoading = useSelector(selectVacancyIsLoading);
-  const dispatch = useDispatch<any>();
+const VacancyList = ({selector}:any) => {
+ 
+  const vacancies:[] = useSelector(selector);
 
-  useEffect(() => {
-    if (!isAuth) {
-      dispatch(loginUser());
-    } else {
-      dispatch(getAllVacancies());
-    }
-  }, [isAuth, isFilterChange]);
 
   const renderVacancies = (vacanciesArr: []) => {
     if (!vacanciesArr || vacanciesArr.length === 0) {
