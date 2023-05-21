@@ -2,11 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_KEY, endpoints } from "../../api";
 import { customURL } from "../../api";
 
+const favoriteVacancies = localStorage.getItem("favoriteVacancies")
+  ? JSON.parse(localStorage.getItem("favoriteVacancies"))
+  : [];
+
 const initialState = {
   vacancies: null,
   isLoading: false,
   error: null,
-  currentVacancy: null
+  currentVacancy: null,
+  favoriteVacancies,
 };
 
 export const getAllVacancies = createAsyncThunk(
@@ -14,7 +19,8 @@ export const getAllVacancies = createAsyncThunk(
   async (arg, { getState }) => {
     const { authSlice, filterSlice } = getState();
     const { accessToken, currentUser } = authSlice;
-    const loginURL = customURL(endpoints.VACANCY.SEARCH, filterSlice);
+    const { filter } = filterSlice;
+    const loginURL = customURL(endpoints.VACANCY.SEARCH, filter);
     const autharization = `Bearer ${accessToken}`;
 
     try {
@@ -37,11 +43,9 @@ export const getAllVacancies = createAsyncThunk(
 
       const data = await response.json();
       return data;
-
     } catch (e) {
       throw e;
     }
-
   }
 );
 
@@ -50,7 +54,7 @@ export const getVacancyByID = createAsyncThunk(
   async (id, { getState }) => {
     const { authSlice, filterSlice } = getState();
     const { accessToken, currentUser } = authSlice;
-    const loginURL = customURL(endpoints.VACANCY.ID, null)+id;
+    const loginURL = customURL(endpoints.VACANCY.ID, null) + id;
     const autharization = `Bearer ${accessToken}`;
     try {
       const response = await fetch(loginURL, {
@@ -73,7 +77,6 @@ export const getVacancyByID = createAsyncThunk(
       const data = await response.json();
       // console.log(data);
       return data;
-
     } catch (e) {
       throw e;
     }
@@ -83,7 +86,18 @@ export const getVacancyByID = createAsyncThunk(
 const vacancySlice = createSlice({
   name: "vacancy",
   initialState,
-  reducers: {},
+  reducers: {
+    addToFavorites: (state, { payload }) => {
+      // return { ...state, favoriteVacancies: {...state.favoriteVacancies, ...payload} };
+      state.favoriteVacancies.push(payload)
+    }, 
+    deleteFromFavorites: (state, { payload }) => {
+      return { ...state, favoriteVacancies: state.favoriteVacancies.filter((elem) => elem.id !== payload) };
+      // return { ...state, favoriteVacancies: state.favoriteVacancies.filter((elem) => {
+      //   console.log(elem.id, payload);
+      //   return elem.id !== payload }  ) };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllVacancies.pending, (state) => {
@@ -115,10 +129,10 @@ const vacancySlice = createSlice({
 });
 
 export default vacancySlice.reducer;
-
+export const { addToFavorites , deleteFromFavorites} = vacancySlice.actions;
 export const selectVacancies = (state) => state.vacancySlice.vacancies;
+export const selectFavoriteVacancies = (state) => state.vacancySlice.favoriteVacancies;
 export const selectVacancyIsLoading = (state) => state.vacancySlice.isLoading;
 export const selectVacancyError = (state) => state.vacancySlice.error;
-export const selectCurrentVacancy = (state) => state.vacancySlice.currentVacancy;
-
-
+export const selectCurrentVacancy = (state) =>
+  state.vacancySlice.currentVacancy;

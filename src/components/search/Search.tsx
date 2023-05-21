@@ -2,26 +2,34 @@ import "./Search.scss";
 
 import { useState } from "react";
 import { Button } from "@mantine/core";
+import { filterSetKeyword } from "../../store/slice/filterSlice";
+import { useDispatch } from "react-redux";
 
 const Search = () => {
+  const dispatch = useDispatch<any>();
   const placeholder = "      Введите название вакансии";
-  const [searchVal, setSearchVal] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
   const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      setSearchVal(event.target.value);
+      setSearchValue(event.target.value);
     }
+  };
+  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(filterSetKeyword(searchValue || ""));
   };
   return (
     <div className="search">
-      <form className="search__form" action="submit">
+      <form className="search__form" onSubmit={onSubmitHandler}>
         <input
           className="search__input"
           placeholder={placeholder}
-          value={searchVal}
+          value={searchValue}
           onChange={onChangeValue}
           type="search"
         />
-        <Button className="search__btn" radius="md">
+        <Button className="search__btn" radius="md" type="submit">
           Поиск
         </Button>
       </form>

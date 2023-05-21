@@ -6,9 +6,9 @@ const initialState = {
   filter: {
     published: 1,
     // catalogues: "33",
-    catalogues: "",
-    payment_from: "",
-    payment_to: "",
+    catalogues: null,
+    payment_from: null,
+    payment_to: null,
     keyword: "",
     // no_agreement:1,
   },
@@ -72,9 +72,14 @@ const filterSlice = createSlice({
     },
     filterChangeToValue: (state, action) => {
       state.filter.payment_to = action.payload;
+    }, 
+    filterChangeAllValue: (state, action) => {
+      state.filter.catalogues = action.payload.selectValue;
+      state.filter.payment_from = action.payload.inputFromValue;
+      state.filter.payment_to = action.payload.inputToValue;
     },
     filterSetKeyword: (state, action) => {
-      state.keyword = action.payload;
+      state.filter.keyword = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -98,9 +103,10 @@ const filterSlice = createSlice({
 export default filterSlice.reducer;
 export const {
   filterClear,
+  filterChangeCatalogues,
   filterChangeFromValue,
   filterChangeToValue,
-  filterChangeCatalogues,
+  filterChangeAllValue,
   filterSetKeyword,
 } = filterSlice.actions;
 

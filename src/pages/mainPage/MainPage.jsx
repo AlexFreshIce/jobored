@@ -8,7 +8,9 @@ const PageMain = () => {
   return (
     <div className="page">
       <div className="page__container page__container--gap">
-        <Filter />
+        <div className="page__filter">
+          <Filter />
+        </div>
         <div className="page__content">
           <Search />
           <VacancyList />

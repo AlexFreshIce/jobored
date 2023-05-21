@@ -10,6 +10,7 @@ import {
 } from "../../store/slice/vacancySlice";
 import { useDispatch } from "react-redux";
 import VacancyHeader from "../../components/vacancyHeader/VacancyHeader";
+import VacancyDescript from "../../components/vacancyDescription/VacancyDescription";
 
 const VacancyPage = () => {
   const { vacancyID } = useParams();
@@ -39,16 +40,8 @@ const VacancyPage = () => {
 const View = (data) => {
   return (
     <>
-      {/* <div className="page">
-        <div className="page__container">
-          <Filter />
-          <div className="page__content">
-            <Search />
-            <VacancyList />
-          </div>
-        </div>
-      </div> */}
       <VacancyHeader {...data} />
+      <VacancyDescript {...data} />
     </>
   );
 };

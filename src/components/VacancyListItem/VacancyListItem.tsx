@@ -13,26 +13,12 @@ import ButtonFavorite from "../buttonFavorite/ButtonFavorite";
 
 const VacancyListItem = (props: any) => {
 
-
-  // const displayContent = isList ? View() : <Spinner />;
-
-  // const liContainer = () => {
-  //   return (
-  //     <li className="vacancy__item">
-  //       <Link to={`/${id}`}></Link>
-  //       <ActionIcon size={22} className="vacancy__btn-favorite">
-  //         <IconStar />
-  //       </ActionIcon>
-  //     </li>
-  //   );
-  // };
-
   return (
     <li className="vacancy__item">
       <Link to={`/${props.id}`}>
      < VacancyHeader {...props}/>
       </Link>
-    <ButtonFavorite/>
+    <ButtonFavorite {...props}/>
     </li>
   );
 };

@@ -25,7 +25,6 @@ const VacancyList = () => {
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
-    console.log(isAuth);
     if (!isAuth) {
       dispatch(loginUser());
     } else {

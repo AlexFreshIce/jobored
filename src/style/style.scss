@@ -87,16 +87,16 @@ p {
   }
 }
 
-.mantine-ActionIcon-root > svg {
-  stroke: $grey-500;
-  &:hover {
-    stroke: $blue-400;
-  }
-  &:active {
-    stroke: $blue-500-main;
-    fill: $blue-500-main;
-  }
-}
+// .mantine-ActionIcon-root  svg {
+//   stroke: $grey-500;
+//   &:hover {
+//     stroke: $blue-400;
+//   }
+//   &:active {
+//     stroke: $blue-500-main;
+//     fill: $blue-500-main;
+//   }
+// }
 
 .mantine-ActionIcon-root > p {
   color: $grey-500;
