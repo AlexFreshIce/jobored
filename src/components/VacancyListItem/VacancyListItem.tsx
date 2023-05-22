@@ -12,13 +12,13 @@ import ButtonFavorite from "../buttonFavorite/ButtonFavorite";
 // }
 
 const VacancyListItem = (props: any) => {
-
+  const dataAttr = `vacancy-${props.id}`;
   return (
-    <li className="vacancy__item">
+    <li data-elem={dataAttr} className="vacancy__item">
       <Link to={`/${props.id}`}>
-     < VacancyHeader {...props}/>
+        <VacancyHeader {...props} />
       </Link>
-    <ButtonFavorite {...props}/>
+      <ButtonFavorite {...props}  />
     </li>
   );
 };

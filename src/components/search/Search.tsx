@@ -23,13 +23,14 @@ const Search = () => {
     <div className="search">
       <form className="search__form" onSubmit={onSubmitHandler}>
         <input
+          data-elem="search-input"
           className="search__input"
           placeholder={placeholder}
           value={searchValue}
           onChange={onChangeValue}
           type="search"
         />
-        <Button className="search__btn" radius="md" type="submit">
+        <Button data-elem="search-button" className="search__btn" radius="md" type="submit">
           Поиск
         </Button>
       </form>

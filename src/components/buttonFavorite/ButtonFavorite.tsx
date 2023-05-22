@@ -46,18 +46,19 @@ const ButtonFavorite = (props: { id: string }) => {
     setIsActive(!isActive);
     if (isActive) {
       dispatch(deleteFromFavorites(props.id));
-      changeFavoritesInLocalStorage("remove", null, props.id)
+      changeFavoritesInLocalStorage("remove", null, props.id);
     } else {
       // const vacancyObj = { [props.id]: props };
       dispatch(addToFavorites(props));
-      changeFavoritesInLocalStorage("add", props, null)
+      changeFavoritesInLocalStorage("add", props, null);
     }
   };
 
-
+  const dataAttr = `vacancy-${props.id}-shortlist-button`;
 
   return (
     <ActionIcon
+      data-elem={dataAttr}
       key={props.id}
       size={22}
       className="vacancy__btn-favorite"

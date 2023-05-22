@@ -47,9 +47,10 @@ const VacancyPage = () => {
 };
 
 const View = (data) => {
+  const dataAttr = `vacancy-${data.id}`;
   return (
     <>
-      <div className="vacancy__header-container">
+      <div data-elem={dataAttr} className="vacancy__header-container">
         <VacancyHeader {...data} />
         <ButtonFavorite {...data} />
       </div>

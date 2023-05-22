@@ -62,6 +62,7 @@ const Filter = () => {
       <form className="filter__form" onSubmit={onSubmitHandler}>
         <h3 className="filter__title">Фильтры</h3>
         <Select
+          data-elem="industry-select"
           label="Отрасль"
           placeholder="Выберете отрасль"
           allowDeselect
@@ -81,6 +82,7 @@ const Filter = () => {
         />
 
         <NumberInput
+        data-elem="salary-from-input"
           min={0}
           step={1000}
           // onChange={(val: number) => dispatch(filterChangeFromValue(val))}
@@ -91,6 +93,7 @@ const Filter = () => {
         />
 
         <NumberInput
+        data-elem="salary-to-input"
           min={inputFromValue}
           step={1000}
           // onChange={(val: number) => dispatch(filterChangeToValue(val))}
@@ -98,7 +101,7 @@ const Filter = () => {
           value={inputToValue || ""}
           placeholder="До"
         />
-        <Button className="filter__btn-submit" radius="md" type="submit">
+        <Button data-elem="search-button" className="filter__btn-submit" radius="md" type="submit">
           Применить
         </Button>
 
