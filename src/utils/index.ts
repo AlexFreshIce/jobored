@@ -14,7 +14,8 @@ export const salary = (
   } else if (paymentTo) {
     payment += " до " + payment_to + " " + currency;
   } else {
-    payment += "не указана";
+    // payment += "не указана";
+    payment += "по договоренности";
   }
   return payment;
 };

@@ -1,5 +1,10 @@
 import { Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { AppHeader } from "../components/header/Header";
 import Spinner from "../components/spinner/Spinner";
 import { MainPage, FavoritesPage, VacancyPage, Error404Page } from "../pages";
@@ -15,12 +20,13 @@ function App() {
       <div className="app">
         <AppHeader links={Links} />
         <main>
-          <Suspense fallback={<Spinner/>}>
+          <Suspense fallback={<Spinner />}>
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/:vacancyID" element={<VacancyPage />} />
-              <Route path="*" element={<Error404Page />} />
+              <Route path="/404" element={<Error404Page />} />
+              <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
           </Suspense>
         </main>

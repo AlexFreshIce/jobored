@@ -1,14 +1,12 @@
 @import "../../style/variables.scss";
 
+.vacancy__description {
+  padding: 24px;
+  position: relative;
+  border: 1px solid $grey-200;
+  border-radius: 8px;
+}
 
-.vacancy {
-  &__description {
-    padding: 24px;
-    position: relative;
-    // list-style-type: none;
-    border: 1px solid $grey-200;
-    border-radius: 8px;
-    // margin-bottom: 16px;
-    // a{text-decoration: none;}
-  }
+.vacancy__header ~ .vacancy__description {
+  margin-top: 20px;
 }

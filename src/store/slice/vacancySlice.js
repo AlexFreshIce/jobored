@@ -52,7 +52,7 @@ export const getAllVacancies = createAsyncThunk(
 export const getVacancyByID = createAsyncThunk(
   "vacancy/getVacancyByID",
   async (id, { getState }) => {
-    const { authSlice, filterSlice } = getState();
+    const { authSlice } = getState();
     const { accessToken, currentUser } = authSlice;
     const loginURL = customURL(endpoints.VACANCY.ID, null) + id;
     const autharization = `Bearer ${accessToken}`;
@@ -73,9 +73,11 @@ export const getVacancyByID = createAsyncThunk(
           `Could not fetch ${loginURL}, status: ${response.status}`
         );
       }
-
       const data = await response.json();
-      // console.log(data);
+
+      if (data.total) {
+        throw new Error(`Invalid vacancy id`);
+      }
       return data;
     } catch (e) {
       throw e;
@@ -88,14 +90,15 @@ const vacancySlice = createSlice({
   initialState,
   reducers: {
     addToFavorites: (state, { payload }) => {
-      // return { ...state, favoriteVacancies: {...state.favoriteVacancies, ...payload} };
-      state.favoriteVacancies.push(payload)
-    }, 
+      state.favoriteVacancies.push(payload);
+    },
     deleteFromFavorites: (state, { payload }) => {
-      return { ...state, favoriteVacancies: state.favoriteVacancies.filter((elem) => elem.id !== payload) };
-      // return { ...state, favoriteVacancies: state.favoriteVacancies.filter((elem) => {
-      //   console.log(elem.id, payload);
-      //   return elem.id !== payload }  ) };
+      return {
+        ...state,
+        favoriteVacancies: state.favoriteVacancies.filter(
+          (elem) => elem.id !== payload
+        ),
+      };
     },
   },
   extraReducers: (builder) => {
@@ -110,7 +113,7 @@ const vacancySlice = createSlice({
       })
       .addCase(getAllVacancies.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.error;
       })
       .addCase(getVacancyByID.pending, (state) => {
         state.isLoading = true;
@@ -121,17 +124,19 @@ const vacancySlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getVacancyByID.rejected, (state, action) => {
+        // state.currentVacancy = null
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.error;
       })
       .addDefaultCase(() => {});
   },
 });
 
 export default vacancySlice.reducer;
-export const { addToFavorites , deleteFromFavorites} = vacancySlice.actions;
+export const { addToFavorites, deleteFromFavorites } = vacancySlice.actions;
 export const selectVacancies = (state) => state.vacancySlice.vacancies;
-export const selectFavoriteVacancies = (state) => state.vacancySlice.favoriteVacancies;
+export const selectFavoriteVacancies = (state) =>
+  state.vacancySlice.favoriteVacancies;
 export const selectVacancyIsLoading = (state) => state.vacancySlice.isLoading;
 export const selectVacancyError = (state) => state.vacancySlice.error;
 export const selectCurrentVacancy = (state) =>

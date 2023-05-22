@@ -6,34 +6,42 @@ import { useSelector } from "react-redux";
 import {
   getVacancyByID,
   selectCurrentVacancy,
+  selectVacancyIsLoading,
   selectVacancyError,
 } from "../../store/slice/vacancySlice";
 import { useDispatch } from "react-redux";
 import VacancyHeader from "../../components/vacancyHeader/VacancyHeader";
 import VacancyDescript from "../../components/vacancyDescription/VacancyDescription";
+import { useNavigate } from "react-router-dom";
 
 const VacancyPage = () => {
   const { vacancyID } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const vacancyData = useSelector(selectCurrentVacancy);
-  const vacancyFetchError = useSelector(selectVacancyError);
-
-  console.log(vacancyData);
+  const isLoading = useSelector(selectVacancyIsLoading);
+  const error = useSelector(selectVacancyError);
 
   useEffect(() => {
-    if (!vacancyData) {
+    if (!error && (!vacancyData || vacancyData?.id !== vacancyID)) {
       dispatch(getVacancyByID(vacancyID));
+    } else {
+      navigate("/404");
     }
-  }, [vacancyData]);
+  }, [error]);
 
-  const displayContent = vacancyData ? View(vacancyData) : <Spinner />;
+  const displayContent =
+    vacancyData && !isLoading ? View(vacancyData) : <Spinner />;
+  // const displayContent = <Spinner />;
 
   return (
-    <div className="page">
-      <div className="page__container">
-        <div className="page__content">{displayContent}</div>;
+    <>
+      <div className="page">
+        <div className="page__container">
+          <div className="page__content">{displayContent}</div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

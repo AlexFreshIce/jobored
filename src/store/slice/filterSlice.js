@@ -47,10 +47,8 @@ export const getCataloguesArr = createAsyncThunk(
         return { value: elem.key, label: elem.title };
       });
 
-      // console.log(data);
-      // console.log(cataloguesArr);
-
       return cataloguesArr;
+      
     } catch (e) {
       throw e;
     }
@@ -94,7 +92,7 @@ const filterSlice = createSlice({
       })
       .addCase(getCataloguesArr.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.error;
       })
       .addDefaultCase(() => {});
   },
