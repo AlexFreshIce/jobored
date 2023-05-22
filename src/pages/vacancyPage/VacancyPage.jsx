@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import VacancyHeader from "../../components/vacancyHeader/VacancyHeader";
 import VacancyDescript from "../../components/vacancyDescription/VacancyDescription";
 import { useNavigate } from "react-router-dom";
+import ButtonFavorite from "../../components/buttonFavorite/ButtonFavorite";
 
 const VacancyPage = () => {
   const { vacancyID } = useParams();
@@ -48,7 +49,11 @@ const VacancyPage = () => {
 const View = (data) => {
   return (
     <>
-      <VacancyHeader {...data} />
+      <div className="vacancy__header-container">
+        <VacancyHeader {...data} />
+        <ButtonFavorite {...data} />
+      </div>
+
       <VacancyDescript {...data} />
     </>
   );
