@@ -11,6 +11,8 @@ const initialState = {
     payment_to: null,
     keyword: "",
     // no_agreement:1,
+    page: 1,
+    count: 4,
   },
   cataloguesArr: [],
   isLoading: false,
@@ -64,21 +66,29 @@ const filterSlice = createSlice({
     },
     filterChangeCatalogues: (state, action) => {
       state.filter.catalogues = action.payload;
+      state.filter.page = 1;
     },
     filterChangeFromValue: (state, action) => {
       state.filter.payment_from = action.payload;
+      state.filter.page = 1;
     },
     filterChangeToValue: (state, action) => {
       state.filter.payment_to = action.payload;
+      state.filter.page = 1;
     }, 
     filterChangeAllValue: (state, action) => {
       state.filter.catalogues = action.payload.selectValue;
       state.filter.payment_from = action.payload.inputFromValue;
       state.filter.payment_to = action.payload.inputToValue;
+      state.filter.page = 1;
     },
     filterSetKeyword: (state, action) => {
       state.filter.keyword = action.payload;
+      state.filter.page = 1;
     },
+    changeCurrentPage:(state, action) => {
+      state.filter.page = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -106,11 +116,13 @@ export const {
   filterChangeToValue,
   filterChangeAllValue,
   filterSetKeyword,
+  changeCurrentPage,
 } = filterSlice.actions;
 
 export const selectFromValue = (state) => state.filterSlice.filter.payment_from;
 export const selectToValue = (state) => state.filterSlice.filter.payment_to;
 export const selectCatalogues = (state) => state.filterSlice.filter.catalogues;
 export const selectKeyword = (state) => state.filterSlice.filter.keyword;
+export const selectPage = (state) => state.filterSlice.filter.page;
 export const selectCataloguesArr = (state) => state.filterSlice.cataloguesArr;
 export const selectIsLoading = (state) => state.filterSlice.isLoading;

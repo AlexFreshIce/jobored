@@ -26,20 +26,23 @@ export const changeFavoritesInLocalStorage = (
   id: string | null
 ) => {
   const jsonString = localStorage.getItem("favoriteVacancies");
-  const favoriteVacancies = jsonString ? JSON.parse(jsonString) : [];
-  let newFavoriteVacancies = [];
+  const favoriteVacancies = jsonString
+    ? JSON.parse(jsonString)
+    : { objects: [], total: 0 };
+  const { objects } = favoriteVacancies;
+  let newVacanciesArr = [];
   switch (action) {
     case "add":
-      newFavoriteVacancies = [...favoriteVacancies, vacancy];
+      newVacanciesArr = [...objects, vacancy];
       break;
     case "remove":
-      newFavoriteVacancies = favoriteVacancies.filter(
+      newVacanciesArr = objects.filter(
         (item: { id: string }) => item.id !== id
       );
       break;
   }
   localStorage.setItem(
     "favoriteVacancies",
-    JSON.stringify(newFavoriteVacancies)
+    JSON.stringify({ total: newVacanciesArr.length, objects: newVacanciesArr })
   );
 };

@@ -4,10 +4,10 @@ import { customURL } from "../../api";
 
 const favoriteVacancies = localStorage.getItem("favoriteVacancies")
   ? JSON.parse(localStorage.getItem("favoriteVacancies"))
-  : [];
+  : {objects:[], total:0};
 
 const initialState = {
-  vacancies: null,
+  vacancies: {objects:[], total:0},
   isLoading: false,
   error: null,
   currentVacancy: null,
@@ -90,14 +90,20 @@ const vacancySlice = createSlice({
   initialState,
   reducers: {
     addToFavorites: (state, { payload }) => {
-      state.favoriteVacancies.push(payload);
+      state.favoriteVacancies.objects.push(payload);
+      state.favoriteVacancies.total += 1;
     },
     deleteFromFavorites: (state, { payload }) => {
+      const vacancies = state.favoriteVacancies.objects.filter(
+        (elem) => elem.id !== payload
+      );
+
       return {
         ...state,
-        favoriteVacancies: state.favoriteVacancies.filter(
-          (elem) => elem.id !== payload
-        ),
+        favoriteVacancies: {
+          objects: vacancies,
+          total: vacancies.length,
+        },
       };
     },
   },
@@ -108,7 +114,7 @@ const vacancySlice = createSlice({
         state.error = null;
       })
       .addCase(getAllVacancies.fulfilled, (state, action) => {
-        state.vacancies = action.payload.objects;
+        state.vacancies = action.payload;
         state.isLoading = false;
       })
       .addCase(getAllVacancies.rejected, (state, action) => {

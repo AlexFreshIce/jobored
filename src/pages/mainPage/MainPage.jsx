@@ -11,6 +11,7 @@ const PageMain = () => {
 
   const isAuth = useSelector(selectIsAuth);
   const isFilterChange = useSelector((state) => state.filterSlice.filter);
+  const vacancies = useSelector(selectVacancies);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const PageMain = () => {
         </div>
         <div className="page__content">
           <Search />
-          <VacancyList selector={selectVacancies}/>
+          <VacancyList vacancies={vacancies} isLocalPagination={false}/>
         </div>
       </div>
     </div>

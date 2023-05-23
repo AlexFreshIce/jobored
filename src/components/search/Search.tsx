@@ -2,22 +2,22 @@ import "./Search.scss";
 
 import { useState } from "react";
 import { Button } from "@mantine/core";
-import { filterSetKeyword } from "../../store/slice/filterSlice";
-import { useDispatch } from "react-redux";
+import { filterSetKeyword, selectKeyword } from "../../store/slice/filterSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Search = () => {
   const dispatch = useDispatch<any>();
   const placeholder = "      Введите название вакансии";
   const [searchValue, setSearchValue] = useState("");
-
+  const currentSearchValue = useSelector(selectKeyword);
   const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event) {
-      setSearchValue(event.target.value);
-    }
+    setSearchValue(event.target.value);
   };
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(filterSetKeyword(searchValue || ""));
+    if (currentSearchValue !== searchValue) {
+      dispatch(filterSetKeyword(searchValue || ""));
+    }
   };
   return (
     <div className="search">
@@ -30,7 +30,12 @@ const Search = () => {
           onChange={onChangeValue}
           type="search"
         />
-        <Button data-elem="search-button" className="search__btn" radius="md" type="submit">
+        <Button
+          data-elem="search-button"
+          className="search__btn"
+          radius="md"
+          type="submit"
+        >
           Поиск
         </Button>
       </form>

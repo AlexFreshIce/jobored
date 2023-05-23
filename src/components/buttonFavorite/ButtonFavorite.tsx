@@ -5,38 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addToFavorites,
   deleteFromFavorites,
-  selectFavoriteVacancies,
 } from "../../store/slice/vacancySlice";
 import { useState, useEffect } from "react";
 import { changeFavoritesInLocalStorage } from "../../utils";
 
 const ButtonFavorite = (props: { id: string }) => {
+  
   const [isActive, setIsActive] = useState(false);
 
   const dispatch = useDispatch<any>();
-
-  // const selectGetFavotiteByID = (id: string) =>
-  //   createSelector([selectFavoriteVacancies], (vacancies) => {
-  //     return vacancies.filter((item: { id: string }) => {
-  //       return item.id === id;
-  //     });
-  //   });
-
-  // if(isActive){}
-  // const favoriteVacancy = useSelector(selectGetFavotiteByID(props.id))
-  // const isCurrentVacancy = Boolean(favoriteVacancy?.lenght)
   const findCurrentVacancy = useSelector((state: any) =>
-    // state.vacancySlice.favoriteVacancies.find(
-    //   (item: { id: string }) => item.id === props.id
-    // )
-    state.vacancySlice.favoriteVacancies.findIndex(
+    state.vacancySlice.favoriteVacancies.objects?.findIndex(
       (item: { id: string }) => item.id === props.id
     )
   );
-  // console.log(findCurrentVacancy);
   const isVacancyInStore = findCurrentVacancy === Number(-1) ? false : true;
-  // const favoriteVacancy = useSelector(selectFavoriteVacancies)
-  // console.log(favoriteVacancy);
 
   useEffect(() => {
     setIsActive(isVacancyInStore);
@@ -48,7 +31,6 @@ const ButtonFavorite = (props: { id: string }) => {
       dispatch(deleteFromFavorites(props.id));
       changeFavoritesInLocalStorage("remove", null, props.id);
     } else {
-      // const vacancyObj = { [props.id]: props };
       dispatch(addToFavorites(props));
       changeFavoritesInLocalStorage("add", props, null);
     }
