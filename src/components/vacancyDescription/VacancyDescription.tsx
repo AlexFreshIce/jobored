@@ -1,7 +1,8 @@
+import { VacancyType } from "../../types";
 import "./VacancyDescription.scss";
 
-const VacancyDescript = (props: { vacancyRichText: string }) => {
-  const theObj = { __html: props.vacancyRichText };
+const VacancyDescript = ({ vacancyRichText }: VacancyType) => {
+  const theObj = { __html: vacancyRichText };
   return (
     <div className="vacancy__description" dangerouslySetInnerHTML={theObj} />
   );

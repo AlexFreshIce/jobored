@@ -9,15 +9,16 @@ import {
 import { useState, useEffect } from "react";
 import { changeFavoritesInLocalStorage } from "../../utils";
 import { AppDispatch, RootState } from "../../store";
+import { VacancyType } from "../../types";
 
-const ButtonFavorite = (props: { id: string }) => {
+const ButtonFavorite = (props:VacancyType) => {
   
   const [isActive, setIsActive] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const findCurrentVacancy = useSelector((state: RootState) =>
     state.vacancySlice.favoriteVacancies.objects.findIndex(
-      (item: { id: string }) => item.id === props.id
+      (item: { id: number }) => item.id === props.id
     )
   );
   const isVacancyInStore = findCurrentVacancy === Number(-1) ? false : true;

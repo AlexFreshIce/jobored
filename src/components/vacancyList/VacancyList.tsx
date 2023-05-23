@@ -7,14 +7,20 @@ import { changeCurrentPage, selectPage } from "../../store/slice/filterSlice";
 import VacancyListItem from "../vacancyListItem/VacancyListItem";
 import Spinner from "../spinner/Spinner";
 import { AppDispatch } from "../../store";
+import { VacanciesType, VacancyType } from "../../types";
 
-const VacancyList = ({ vacancies, isLocalPagination }: any) => {
+const VacancyList = ({
+  vacancies,
+  isLocalPagination,
+}: {
+  vacancies: VacanciesType;
+  isLocalPagination: boolean;
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(selectVacancyIsLoading);
   const currentPage = useSelector(selectPage);
-
   const renderVacancies = (
-    { objects }: { objects: [] },
+    { objects }: VacanciesType,
     isLocalPagination: boolean,
     currentPage: number,
     maxOnPage: number
@@ -28,12 +34,12 @@ const VacancyList = ({ vacancies, isLocalPagination }: any) => {
 
       const renderVacancies = [];
       for (let i = firstElem; i < lastElem; i++) {
-        const vacancy: { id: string } = objects[i];
+        const vacancy: VacancyType = objects[i];
         renderVacancies.push(<VacancyListItem key={vacancy.id} {...vacancy} />);
       }
       return renderVacancies;
     } else {
-      return objects.map((vacancy: { id: string }) => {
+      return objects.map((vacancy: VacancyType) => {
         return <VacancyListItem key={vacancy.id} {...vacancy} />;
       });
     }
@@ -41,6 +47,7 @@ const VacancyList = ({ vacancies, isLocalPagination }: any) => {
   const maxOnPage = 4;
   const maxPage = vacancies ? Math.ceil(vacancies.total / maxOnPage) : 0;
   const lastPage = maxPage > 125 ? 125 : maxPage;
+  
   const renderedVacanciesArr = renderVacancies(
     vacancies,
     isLocalPagination,
@@ -53,7 +60,7 @@ const VacancyList = ({ vacancies, isLocalPagination }: any) => {
   }, [isLocalPagination]);
 
   useEffect(() => {
-    if (renderedVacanciesArr.length===0) {
+    if (renderedVacanciesArr.length === 0) {
       dispatch(changeCurrentPage(1));
     }
   }, [renderedVacanciesArr]);

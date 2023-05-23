@@ -1,7 +1,7 @@
 import "./VacancyHeader.scss";
 import { IconMapPin } from "@tabler/icons-react";
 import { salary } from "../../utils";
-// import ButtonFavorite from "../buttonFavorite/ButtonFavorite";
+import { VacancyType } from "../../types";
 
 const VacancyHeader = ({
   id,
@@ -12,7 +12,7 @@ const VacancyHeader = ({
   payment_from,
   payment_to,
   currency,
-}: any) => {
+}: VacancyType) => {
   const resoultSalary = salary(payment_from, payment_to, currency);
 
   return (

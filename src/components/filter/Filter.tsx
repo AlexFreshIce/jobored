@@ -18,9 +18,6 @@ const Filter = () => {
   const [inputFromValue, setInputFromValue] = useState(0);
   const [inputToValue, setInputToValue] = useState(0);
   const isAuth = useSelector(selectIsAuth);
-  // const inputFromValue = useSelector(selectFromValue);
-  // const inputToValue = useSelector(selectToValue);
-  // const selectValue = useSelector(selectCatalogues);
   const cataloguesArr = useSelector(selectCataloguesArr);
   const filterIsLoading = useSelector(selectIsLoading);
 
@@ -30,18 +27,18 @@ const Filter = () => {
     }
   }, [isAuth]);
 
-  const handleFilterApply = (
-    selectValue: any,
-    inputFromValue: any,
-    inputToValue: any
-  ) => {
-    const payload = {
-      selectValue: selectValue || "",
-      inputFromValue: inputFromValue || 0,
-      inputToValue: inputToValue || 0,
-    };
-    dispatch(filterChangeAllValue(payload));
-  };
+  // const handleFilterApply = (
+  //   selectValue: string,
+  //   inputFromValue: number,
+  //   inputToValue: number
+  // ) => {
+  //   const payload = {
+  //     selectValue: selectValue || "",
+  //     inputFromValue: inputFromValue || 0,
+  //     inputToValue: inputToValue || 0,
+  //   };
+  //   dispatch(filterChangeAllValue(payload));
+  // };
   const clearFilterHandle = () => {
     setSelectValue("");
     setInputFromValue(0);
@@ -83,7 +80,7 @@ const Filter = () => {
         />
 
         <NumberInput
-        data-elem="salary-from-input"
+          data-elem="salary-from-input"
           min={0}
           step={1000}
           // onChange={(val: number) => dispatch(filterChangeFromValue(val))}
@@ -94,7 +91,7 @@ const Filter = () => {
         />
 
         <NumberInput
-        data-elem="salary-to-input"
+          data-elem="salary-to-input"
           min={inputFromValue}
           step={1000}
           // onChange={(val: number) => dispatch(filterChangeToValue(val))}
@@ -102,7 +99,12 @@ const Filter = () => {
           value={inputToValue || ""}
           placeholder="До"
         />
-        <Button data-elem="search-button" className="filter__btn-submit" radius="md" type="submit">
+        <Button
+          data-elem="search-button"
+          className="filter__btn-submit"
+          radius="md"
+          type="submit"
+        >
           Применить
         </Button>
 

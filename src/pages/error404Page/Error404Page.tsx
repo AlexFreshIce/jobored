@@ -7,7 +7,6 @@ import './Error404Page.scss';
 const Page404 = () => {
   return (
     <div className="page404">
-      {/* <ErrorMessage /> */}
      <img src={decoration} alt="decoration"/>
       <p>Упс, здесь еще ничего нет!</p>
       <Link to="/">Поиск Вакансий</Link>

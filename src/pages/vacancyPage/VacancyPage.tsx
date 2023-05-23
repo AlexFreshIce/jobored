@@ -15,8 +15,10 @@ import VacancyDescript from "../../components/vacancyDescription/VacancyDescript
 import { useNavigate } from "react-router-dom";
 import ButtonFavorite from "../../components/buttonFavorite/ButtonFavorite";
 import { AppDispatch } from "../../store";
+import { VacancyType } from "../../types";
 
 const VacancyPage = () => {
+  
   type urlParams = {
     vacancyID: string;
   };
@@ -39,7 +41,6 @@ const VacancyPage = () => {
 
   const displayContent =
     vacancyData && !isLoading ? View(vacancyData) : <Spinner />;
-  // const displayContent = <Spinner />;
 
   return (
     <>
@@ -52,7 +53,7 @@ const VacancyPage = () => {
   );
 };
 
-const View = (data:any) => {
+const View = (data:VacancyType) => {
   const dataAttr = `vacancy-${data.id}`;
   return (
     <>

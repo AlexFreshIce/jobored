@@ -23,7 +23,7 @@ export const salary = (
 export const changeFavoritesInLocalStorage = (
   action: string,
   vacancy: {} | null,
-  id: string | null
+  id: number | null
 ) => {
   const jsonString = localStorage.getItem("favoriteVacancies");
   const favoriteVacancies = jsonString
@@ -37,7 +37,7 @@ export const changeFavoritesInLocalStorage = (
       break;
     case "remove":
       newVacanciesArr = objects.filter(
-        (item: { id: string }) => item.id !== id
+        (item: { id: number }) => item.id !== id
       );
       break;
   }
