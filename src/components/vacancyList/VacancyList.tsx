@@ -52,7 +52,7 @@ const VacancyList = ({ vacancies, isLocalPagination }: any) => {
   }, [isLocalPagination]);
 
   useEffect(() => {
-    if (renderedVacanciesArr.length) {
+    if (renderedVacanciesArr.length===0) {
       dispatch(changeCurrentPage(1));
     }
   }, [renderedVacanciesArr]);
