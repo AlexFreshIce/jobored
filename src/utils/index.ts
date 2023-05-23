@@ -1,17 +1,14 @@
-export const salary = (
-  payment_from: string | number,
-  payment_to: string | number,
-  currency: string
-) => {
+import { VacancyType } from "../types";
+
+export const salary = (vacancy: VacancyType) => {
+  const { payment_from, payment_to, currency } = vacancy;
   let payment = "з/п ";
-  const paymentFrom =
-    payment_from && payment_from !== "0" && payment_from !== "";
-  const paymentTo = payment_to && payment_to !== "0" && payment_to !== "";
-  if (paymentFrom && paymentTo) {
+
+  if (payment_from && payment_to) {
     payment += payment_from + " - " + payment_to + " " + currency;
-  } else if (paymentFrom) {
+  } else if (payment_from) {
     payment += " от " + payment_from + " " + currency;
-  } else if (paymentTo) {
+  } else if (payment_to) {
     payment += " до " + payment_to + " " + currency;
   } else {
     // payment += "не указана";
@@ -30,19 +27,22 @@ export const changeFavoritesInLocalStorage = (
     ? JSON.parse(jsonString)
     : { objects: [], total: 0 };
   const { objects } = favoriteVacancies;
-  let newVacanciesArr = [];
-  switch (action) {
-    case "add":
-      newVacanciesArr = [...objects, vacancy];
-      break;
-    case "remove":
-      newVacanciesArr = objects.filter(
-        (item: { id: number }) => item.id !== id
-      );
-      break;
+
+  const getNewVacanciesArray = () => {
+    switch (action) {
+      case "add":
+        return [...objects, vacancy];
+      case "remove":
+        return objects.filter(
+          (item: { id: number }) => item.id !== id
+        );
+    }
   }
+
+  const newVacancies = getNewVacanciesArray();
+
   localStorage.setItem(
     "favoriteVacancies",
-    JSON.stringify({ total: newVacanciesArr.length, objects: newVacanciesArr })
+    JSON.stringify({ total: newVacancies.length, objects: newVacancies })
   );
 };

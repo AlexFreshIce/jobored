@@ -6,17 +6,15 @@ import {
   Paper,
   Transition,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { NavLink } from "react-router-dom";
-import Logo from "../logo/Logo";
+import { Logo } from "../logo";
 import "./Header.scss";
+import { FC } from "react";
+import { HeaderComponentType } from "./types";
 
-interface HeaderResponsiveProps {
-  links: { link: string; label: string }[];
-}
 
-export function AppHeader({ links }: HeaderResponsiveProps) {
-  const [opened, { toggle, close }] = useDisclosure(false);
+export const HeaderComponent: FC<HeaderComponentType> = (props) => {
+  const { links, close, opened, toggle } = props;
 
   const items = links.map((link) => (
     <NavLink

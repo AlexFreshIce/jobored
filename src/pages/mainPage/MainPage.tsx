@@ -1,27 +1,12 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, selectIsAuth } from "../../store/slice/authSlice";
-import { getAllVacancies, selectVacancies} from "../../store/slice/vacancySlice";
-import Filter from "../../components/filter/Filter";
-import Search from "../../components/search/Search";
-import VacancyList from "../../components/vacancyList/VacancyList";
+import { FC } from "react";
+import { Filter } from "../../components/filter";
+import { Search } from "../../components/search";
+import { VacancyList } from "../../components/vacancyList";
 import "./MainPage.scss";
-import { AppDispatch, RootState,  } from "../../store";
+import { MainPageComponentType } from "./types";
 
-const PageMain = () => {
-
-  const isAuth = useSelector(selectIsAuth);
-  const isFilterChange = useSelector((state:RootState) => state.filterSlice.filter);
-  const vacancies = useSelector(selectVacancies);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    if (!isAuth) {
-      dispatch(loginUser());
-    } else {
-      dispatch(getAllVacancies());
-    }
-  }, [isAuth, isFilterChange]);
+export const MainPageComponent: FC<MainPageComponentType> = (props) => {
+  const { vacancies } = props;
 
   return (
     <div className="page">
@@ -31,11 +16,9 @@ const PageMain = () => {
         </div>
         <div className="page__content">
           <Search />
-          <VacancyList vacancies={vacancies} isLocalPagination={false}/>
+          <VacancyList vacancies={vacancies} isLocalPagination={false} />
         </div>
       </div>
     </div>
   );
 };
-
-export default PageMain;

@@ -5,8 +5,8 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { AppHeader } from "../components/header/Header";
-import Spinner from "../components/spinner/Spinner";
+import { Header } from "../components/header";
+import { Spinner } from "../components/spinner";
 import { MainPage, FavoritesPage, VacancyPage, Error404Page } from "../pages";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <AppHeader links={Links} />
+        <Header links={Links} />
         <main>
           <Suspense fallback={<Spinner />}>
             <Routes>

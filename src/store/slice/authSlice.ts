@@ -103,3 +103,5 @@ export const selectAccessToken = (state: RootState) =>
 export const selectIsAuth = (state: RootState) => state.authSlice.isAuth;
 export const selectAuthIsLoading = (state: RootState) =>
   state.authSlice.isLoading;
+export const selectAuthError = (state: RootState) =>
+  state.authSlice.error;

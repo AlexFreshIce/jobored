@@ -1,10 +1,11 @@
 import "./FavoritesPage.scss";
-import VacancyList from "../../components/vacancyList/VacancyList";
-import { selectFavoriteVacancies } from "../../store/slice/vacancySlice";
-import { useSelector } from "react-redux";
+import { VacancyList } from "../../components/vacancyList";
+import { FC } from "react";
+import { FavoritesPageComponentType } from "./types";
 
-const PageFavorites = () => {
-  const vacancies = useSelector(selectFavoriteVacancies);
+export const FavoritesPageComponent: FC<FavoritesPageComponentType> = (props) => {
+  const { vacancies } = props;
+
   return (
     <div className="page">
       <div className="page__container">
@@ -15,5 +16,3 @@ const PageFavorites = () => {
     </div>
   );
 };
-
-export default PageFavorites;

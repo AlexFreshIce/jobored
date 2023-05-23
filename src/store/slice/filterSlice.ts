@@ -144,3 +144,4 @@ export const selectKeyword = (state:RootState) => state.filterSlice.filter.keywo
 export const selectPage = (state:RootState) => state.filterSlice.filter.page;
 export const selectCataloguesArr = (state:RootState) => state.filterSlice.cataloguesArr;
 export const selectIsLoading = (state:RootState) => state.filterSlice.isLoading;
+export const selectFilter = (state:RootState) => state.filterSlice;

@@ -1,7 +1,7 @@
 import "./Logo.scss"
 import logo from "../../resources/img/logo.svg"
 
-const Logo = () => {
+export const LogoComponent = () => {
   
   return (
     <div className="logo">
@@ -10,5 +10,3 @@ const Logo = () => {
     </div>
   )
 }
-
-export default Logo

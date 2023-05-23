@@ -4,9 +4,9 @@ import { customURL } from "../../api";
 import { VacanciesType, VacancyType } from "../../types";
 import { RootState } from "..";
 
-const favoriteVacancies = localStorage.getItem("favoriteVacancies")
-// @ts-ignore
-  ? JSON.parse(localStorage.getItem("favoriteVacancies"))
+const favoriteVacanciesFromStorage = localStorage.getItem("favoriteVacancies");
+const favoriteVacancies = favoriteVacanciesFromStorage
+  ? JSON.parse(favoriteVacanciesFromStorage)
   : { objects: [], total: 0 };
 
 interface IVacancyState {
@@ -103,9 +103,16 @@ const vacancySlice = createSlice({
   initialState,
   reducers: {
     addToFavorites: (state, { payload }) => {
-      // @ts-ignore
-      state.favoriteVacancies.objects.push(payload);
-      state.favoriteVacancies.total += 1;
+      const objects = [...state.favoriteVacancies.objects, payload];
+      const total = objects.length;
+
+      return {
+        ...state,
+        favoriteVacancies: {
+          objects,
+          total,
+        },
+      };
     },
     deleteFromFavorites: (state, { payload }) => {
       const vacancies = state.favoriteVacancies.objects.filter(

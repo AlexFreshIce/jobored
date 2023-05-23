@@ -4,7 +4,7 @@ import decoration from '../../resources/img/404.svg';
 
 import './Error404Page.scss';
 
-const Page404 = () => {
+export const Error404PageComponent = () => {
   return (
     <div className="page404">
      <img src={decoration} alt="decoration"/>
@@ -13,5 +13,3 @@ const Page404 = () => {
     </div>
   )
 }
-
-export default Page404;

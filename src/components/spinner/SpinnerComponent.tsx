@@ -1,12 +1,10 @@
 import "./Spinner.scss"
 import { Loader } from "@mantine/core";
 
-const Spinner = () => {
+export const SpinnerComponent = () => {
   return (
     <div className="spinner">
       <Loader/>
     </div>
   )
 }
-
-export default Spinner
