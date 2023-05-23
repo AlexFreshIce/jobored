@@ -1,23 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_KEY, endpoints } from "../../api";
 import { customURL } from "../../api";
+import { VacanciesType, VacancyType } from "../../types";
+import { RootState } from "..";
 
 const favoriteVacancies = localStorage.getItem("favoriteVacancies")
+// @ts-ignore
   ? JSON.parse(localStorage.getItem("favoriteVacancies"))
-  : {objects:[], total:0};
+  : { objects: [], total: 0 };
+
+interface IVacancyState {
+  vacancies: VacanciesType;
+  isLoading: boolean;
+  error: null | {};
+  currentVacancy: null | VacancyType;
+  favoriteVacancies: VacanciesType;
+}
 
 const initialState = {
-  vacancies: {objects:[], total:0},
+  vacancies: { objects: [], total: 0 },
   isLoading: false,
   error: null,
   currentVacancy: null,
   favoriteVacancies,
-};
+} as IVacancyState;
 
 export const getAllVacancies = createAsyncThunk(
   "vacancy/getAllVacancies",
-  async (arg, { getState }) => {
-    const { authSlice, filterSlice } = getState();
+  async (arg: void, api) => {
+    const appState = api.getState() as RootState;
+    const { authSlice, filterSlice } = appState;
     const { accessToken, currentUser } = authSlice;
     const { filter } = filterSlice;
     const loginURL = customURL(endpoints.VACANCY.SEARCH, filter);
@@ -51,8 +63,9 @@ export const getAllVacancies = createAsyncThunk(
 
 export const getVacancyByID = createAsyncThunk(
   "vacancy/getVacancyByID",
-  async (id, { getState }) => {
-    const { authSlice } = getState();
+  async (id: number, api) => {
+    const appState = api.getState() as RootState;
+    const { authSlice } = appState;
     const { accessToken, currentUser } = authSlice;
     const loginURL = customURL(endpoints.VACANCY.ID, null) + id;
     const autharization = `Bearer ${accessToken}`;
@@ -90,6 +103,7 @@ const vacancySlice = createSlice({
   initialState,
   reducers: {
     addToFavorites: (state, { payload }) => {
+      // @ts-ignore
       state.favoriteVacancies.objects.push(payload);
       state.favoriteVacancies.total += 1;
     },
@@ -140,10 +154,13 @@ const vacancySlice = createSlice({
 
 export default vacancySlice.reducer;
 export const { addToFavorites, deleteFromFavorites } = vacancySlice.actions;
-export const selectVacancies = (state) => state.vacancySlice.vacancies;
-export const selectFavoriteVacancies = (state) =>
+export const selectVacancies = (state: RootState) =>
+  state.vacancySlice.vacancies;
+export const selectFavoriteVacancies = (state: RootState) =>
   state.vacancySlice.favoriteVacancies;
-export const selectVacancyIsLoading = (state) => state.vacancySlice.isLoading;
-export const selectVacancyError = (state) => state.vacancySlice.error;
-export const selectCurrentVacancy = (state) =>
+export const selectVacancyIsLoading = (state: RootState) =>
+  state.vacancySlice.isLoading;
+export const selectVacancyError = (state: RootState) =>
+  state.vacancySlice.error;
+export const selectCurrentVacancy = (state: RootState) =>
   state.vacancySlice.currentVacancy;

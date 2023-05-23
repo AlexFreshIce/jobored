@@ -1,6 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_KEY, endpoints } from "../../api";
 import { customURL } from "../../api";
+import { RootState } from "..";
+
+interface IAuthState {
+  currentUser: {
+    login: string;
+    password: string;
+    client_id: string;
+    client_secret: string;
+    hr: string;
+  };
+  accessToken: string | null;
+  isAuth: boolean;
+  isLoading: boolean;
+  error: null | {};
+}
 
 const accessToken = localStorage.getItem("accessToken")
   ? localStorage.getItem("accessToken")
@@ -21,12 +36,13 @@ const initialState = {
   isAuth,
   isLoading: false,
   error: null,
-};
+} as IAuthState;
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (arg, { getState }) => {
-    const currentUser = getState().authSlice.currentUser;
+  async (arg: void, api) => {
+    const appState = api.getState() as RootState;
+    const currentUser = appState.authSlice.currentUser;
     const loginURL = customURL(endpoints.AUTH.LOGIN, currentUser);
 
     try {
@@ -43,12 +59,11 @@ export const loginUser = createAsyncThunk(
       }
 
       const data = await response.json();
-    
+
       localStorage.setItem("accessToken", data.access_token);
       localStorage.setItem("refreshToken", data.refresh_token);
 
       return data;
-      
     } catch (e) {
       throw e;
     }
@@ -83,6 +98,8 @@ const authSlice = createSlice({
 
 export default authSlice.reducer;
 
-export const selectAccessToken = (state) => state.authSlice.accessToken;
-export const selectIsAuth = (state) => state.authSlice.isAuth;
-export const selectAuthIsLoading = (state) => state.authSlice.isLoading;
+export const selectAccessToken = (state: RootState) =>
+  state.authSlice.accessToken;
+export const selectIsAuth = (state: RootState) => state.authSlice.isAuth;
+export const selectAuthIsLoading = (state: RootState) =>
+  state.authSlice.isLoading;

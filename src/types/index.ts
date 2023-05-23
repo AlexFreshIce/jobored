@@ -25,4 +25,4 @@ export type FilterType = {
   count: number;
 };
 
-export type CataloguesType = { label: string; value: number }[];
+export type CataloguesType = { label: string; value: string }[] | [];

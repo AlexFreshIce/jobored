@@ -8,6 +8,7 @@ import {
   filterChangeAllValue,
   selectCataloguesArr,
   selectIsLoading,
+  filterClear,
 } from "../../store/slice/filterSlice";
 import { selectIsAuth } from "../../store/slice/authSlice";
 import { AppDispatch } from "../../store";
@@ -27,22 +28,11 @@ const Filter = () => {
     }
   }, [isAuth]);
 
-  // const handleFilterApply = (
-  //   selectValue: string,
-  //   inputFromValue: number,
-  //   inputToValue: number
-  // ) => {
-  //   const payload = {
-  //     selectValue: selectValue || "",
-  //     inputFromValue: inputFromValue || 0,
-  //     inputToValue: inputToValue || 0,
-  //   };
-  //   dispatch(filterChangeAllValue(payload));
-  // };
   const clearFilterHandle = () => {
     setSelectValue("");
     setInputFromValue(0);
     setInputToValue(0);
+    dispatch(filterClear());
   };
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -111,7 +101,6 @@ const Filter = () => {
         <ActionIcon
           onClick={() => {
             clearFilterHandle();
-            // dispatch(filterClear());
           }}
           type="button"
           size={20}

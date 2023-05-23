@@ -1,6 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_KEY, endpoints } from "../../api";
 import { customURL } from "../../api";
+import { CataloguesType } from "../../types";
+import { RootState } from "..";
+
+interface IFilterState {
+  filter: {
+    published: number;
+    catalogues: null | string;
+    payment_from: null | number;
+    payment_to: null | number;
+    keyword: string;
+    no_agreement?: number;
+    page: number;
+    count: number;
+  };
+  cataloguesArr: CataloguesType;
+  isLoading: boolean;
+  error: null | {};
+}
 
 const initialState = {
   filter: {
@@ -17,12 +35,13 @@ const initialState = {
   cataloguesArr: [],
   isLoading: false,
   error: null,
-};
+} as IFilterState;
 
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
-  async (arg, { getState }) => {
-    const { accessToken, currentUser } = getState().authSlice;
+  async (arg: void, api) => {
+    const appState = api.getState() as RootState;
+    const { accessToken, currentUser } = appState.authSlice;
     const cataloguesURL = customURL(endpoints.FILTER.CATALOGUES);
     const autharization = `Bearer ${accessToken}`;
     try {
@@ -45,12 +64,11 @@ export const getCataloguesArr = createAsyncThunk(
 
       const data = await response.json();
 
-      const cataloguesArr = data.map((elem) => {
+      const cataloguesArr = data.map((elem: { key: number; title: string }) => {
         return { value: elem.key, label: elem.title };
       });
 
       return cataloguesArr;
-      
     } catch (e) {
       throw e;
     }
@@ -62,7 +80,7 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     filterClear: (state) => {
-      state.filter = initialState;
+      state.filter = initialState.filter;
     },
     filterChangeCatalogues: (state, action) => {
       state.filter.catalogues = action.payload;
@@ -75,7 +93,7 @@ const filterSlice = createSlice({
     filterChangeToValue: (state, action) => {
       state.filter.payment_to = action.payload;
       state.filter.page = 1;
-    }, 
+    },
     filterChangeAllValue: (state, action) => {
       state.filter.catalogues = action.payload.selectValue;
       state.filter.payment_from = action.payload.inputFromValue;
@@ -86,9 +104,9 @@ const filterSlice = createSlice({
       state.filter.keyword = action.payload;
       state.filter.page = 1;
     },
-    changeCurrentPage:(state, action) => {
+    changeCurrentPage: (state, action) => {
       state.filter.page = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -119,10 +137,10 @@ export const {
   changeCurrentPage,
 } = filterSlice.actions;
 
-export const selectFromValue = (state) => state.filterSlice.filter.payment_from;
-export const selectToValue = (state) => state.filterSlice.filter.payment_to;
-export const selectCatalogues = (state) => state.filterSlice.filter.catalogues;
-export const selectKeyword = (state) => state.filterSlice.filter.keyword;
-export const selectPage = (state) => state.filterSlice.filter.page;
-export const selectCataloguesArr = (state) => state.filterSlice.cataloguesArr;
-export const selectIsLoading = (state) => state.filterSlice.isLoading;
+export const selectFromValue = (state:RootState) => state.filterSlice.filter.payment_from;
+export const selectToValue = (state:RootState) => state.filterSlice.filter.payment_to;
+export const selectCatalogues = (state:RootState) => state.filterSlice.filter.catalogues;
+export const selectKeyword = (state:RootState) => state.filterSlice.filter.keyword;
+export const selectPage = (state:RootState) => state.filterSlice.filter.page;
+export const selectCataloguesArr = (state:RootState) => state.filterSlice.cataloguesArr;
+export const selectIsLoading = (state:RootState) => state.filterSlice.isLoading;

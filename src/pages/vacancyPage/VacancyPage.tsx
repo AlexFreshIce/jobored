@@ -31,9 +31,9 @@ const VacancyPage = () => {
   const error = useSelector(selectVacancyError);
  
   useEffect(() => {
-    if (!error && (!vacancyData || vacancyData?.id !== vacancyID)) {
-      // @ts-ignore
-      dispatch(getVacancyByID(vacancyID));
+    if (!error && (!vacancyData || vacancyData?.id !== Number(vacancyID))) {
+      
+      dispatch(getVacancyByID(Number(vacancyID)));
     } else {
       navigate("/404");
     }
