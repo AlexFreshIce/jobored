@@ -14,17 +14,23 @@ import VacancyHeader from "../../components/vacancyHeader/VacancyHeader";
 import VacancyDescript from "../../components/vacancyDescription/VacancyDescription";
 import { useNavigate } from "react-router-dom";
 import ButtonFavorite from "../../components/buttonFavorite/ButtonFavorite";
+import { AppDispatch } from "../../store";
 
 const VacancyPage = () => {
-  const { vacancyID } = useParams();
-  const dispatch = useDispatch();
+  type urlParams = {
+    vacancyID: string;
+  };
+
+  const { vacancyID } = useParams<urlParams>();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const vacancyData = useSelector(selectCurrentVacancy);
   const isLoading = useSelector(selectVacancyIsLoading);
   const error = useSelector(selectVacancyError);
-
+ 
   useEffect(() => {
     if (!error && (!vacancyData || vacancyData?.id !== vacancyID)) {
+      // @ts-ignore
       dispatch(getVacancyByID(vacancyID));
     } else {
       navigate("/404");
@@ -46,7 +52,7 @@ const VacancyPage = () => {
   );
 };
 
-const View = (data) => {
+const View = (data:any) => {
   const dataAttr = `vacancy-${data.id}`;
   return (
     <>

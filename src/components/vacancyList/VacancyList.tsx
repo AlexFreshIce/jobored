@@ -6,9 +6,10 @@ import { selectVacancyIsLoading } from "../../store/slice/vacancySlice";
 import { changeCurrentPage, selectPage } from "../../store/slice/filterSlice";
 import VacancyListItem from "../vacancyListItem/VacancyListItem";
 import Spinner from "../spinner/Spinner";
+import { AppDispatch } from "../../store";
 
 const VacancyList = ({ vacancies, isLocalPagination }: any) => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(selectVacancyIsLoading);
   const currentPage = useSelector(selectPage);
 

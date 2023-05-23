@@ -6,13 +6,14 @@ import Filter from "../../components/filter/Filter";
 import Search from "../../components/search/Search";
 import VacancyList from "../../components/vacancyList/VacancyList";
 import "./MainPage.scss";
+import { AppDispatch, RootState,  } from "../../store";
 
 const PageMain = () => {
 
   const isAuth = useSelector(selectIsAuth);
-  const isFilterChange = useSelector((state) => state.filterSlice.filter);
+  const isFilterChange = useSelector((state:RootState) => state.filterSlice.filter);
   const vacancies = useSelector(selectVacancies);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (!isAuth) {

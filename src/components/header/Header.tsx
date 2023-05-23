@@ -11,8 +11,6 @@ import { NavLink } from "react-router-dom";
 import Logo from "../logo/Logo";
 import "./Header.scss";
 
-// const HEADER_HEIGHT = rem(60);
-
 interface HeaderResponsiveProps {
   links: { link: string; label: string }[];
 }

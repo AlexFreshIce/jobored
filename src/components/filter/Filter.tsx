@@ -10,9 +10,10 @@ import {
   selectIsLoading,
 } from "../../store/slice/filterSlice";
 import { selectIsAuth } from "../../store/slice/authSlice";
+import { AppDispatch } from "../../store";
 
 const Filter = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const [selectValue, setSelectValue] = useState("");
   const [inputFromValue, setInputFromValue] = useState(0);
   const [inputToValue, setInputToValue] = useState(0);

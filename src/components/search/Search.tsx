@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Button } from "@mantine/core";
 import { filterSetKeyword, selectKeyword } from "../../store/slice/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../store";
 
 const Search = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const placeholder = "      Введите название вакансии";
   const [searchValue, setSearchValue] = useState("");
   const currentSearchValue = useSelector(selectKeyword);
