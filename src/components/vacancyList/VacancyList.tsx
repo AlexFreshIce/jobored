@@ -47,7 +47,7 @@ const VacancyList = ({
   const maxOnPage = 4;
   const maxPage = vacancies ? Math.ceil(vacancies.total / maxOnPage) : 0;
   const lastPage = maxPage > 125 ? 125 : maxPage;
-  
+
   const renderedVacanciesArr = renderVacancies(
     vacancies,
     isLocalPagination,
