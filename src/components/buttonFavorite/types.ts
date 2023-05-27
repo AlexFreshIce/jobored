@@ -6,7 +6,7 @@ export type ButtonFavoriteType = {
 
 export type ButtonFavoriteComponentType = {
   isActive: boolean;
-  vacancyId: VacancyType['id'];
+  vacancyId: VacancyType["id"];
 
   addToFavoritesHandler(): void;
 };

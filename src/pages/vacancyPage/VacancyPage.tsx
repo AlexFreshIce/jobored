@@ -1,9 +1,9 @@
-import "./VacancyPage.scss";
-import { Spinner } from "../../components/spinner";
 import { FC } from "react";
-import { VacancyHeader } from "../../components/vacancyHeader";
-import { VacancyDescription } from "../../components/vacancyDescription";
 import { ButtonFavorite } from "../../components/buttonFavorite";
+import { Spinner } from "../../components/spinner";
+import { VacancyDescription } from "../../components/vacancyDescription";
+import { VacancyHeader } from "../../components/vacancyHeader";
+import "./styles.scss";
 import { VacancyPageComponentType } from "./types";
 
 export const VacancyPageComponent: FC<VacancyPageComponentType> = (props) => {

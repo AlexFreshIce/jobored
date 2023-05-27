@@ -1,14 +1,11 @@
-@import "../../style/variables.scss";
+@import "../../styles/variables.scss";
 
 .vacancy {
   &__header {
     padding: 24px;
     position: relative;
-    // list-style-type: none;
     border: 1px solid $grey-200;
     border-radius: 8px;
-    // margin-bottom: 16px;
-    // a{text-decoration: none;}
   }
   &__title {
     color: $blue-500-main;

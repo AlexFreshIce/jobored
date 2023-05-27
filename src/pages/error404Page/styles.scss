@@ -1,28 +1,25 @@
-@import "../../style/variables.scss";
+@import "../../styles/variables.scss";
 
-.page404{
+.page404 {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 32px;
 }
-
-.page404 img{
+.page404 img {
   display: block;
   width: fit-content;
   max-width: 100%;
 }
-
-.page404 p{
+.page404 p {
   font-weight: 700;
   font-size: 24px;
   text-align: center;
 }
-
-.page404 a{
+.page404 a {
   display: block;
   padding: 10px 24px;
-  gap: 10px; 
+  gap: 10px;
   text-decoration: none;
   font-size: 14px;
   line-height: 155%;
@@ -33,9 +30,6 @@
   &:hover {
     text-decoration: none;
     background: $grey-100;
-    // color: $main-color;
     color: $blue-400;
-    
   }
 }
-

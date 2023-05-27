@@ -1,10 +1,10 @@
-import { FC } from "react";
-import { HeaderType } from "./types";
 import { useDisclosure } from "@mantine/hooks";
-import { HeaderComponent } from "./HeaderComponent";
+import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { changeCurrentPage } from "../../store/slice/filterSlice";
+import { HeaderComponent } from "./HeaderComponent";
+import { HeaderType } from "./types";
 
 export const Header: FC<HeaderType> = (props) => {
   const [opened, { toggle, close }] = useDisclosure(false);

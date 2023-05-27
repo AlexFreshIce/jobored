@@ -1,10 +1,9 @@
-@import "../../style/variables.scss";
+@import "../../styles/variables.scss";
 
 .header {
   margin-bottom: 40px;
   position: relative;
   z-index: 1;
-
   &__dropdown {
     display: flex;
     flex-direction: column;
@@ -71,6 +70,7 @@
     }
   }
 }
+
 @media screen and (min-width: 640px) {
   .header__dropdown,
   .header__burger {

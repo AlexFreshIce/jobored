@@ -1,9 +1,10 @@
-import "./FavoritesPage.scss";
-import { VacancyList } from "../../components/vacancyList";
 import { FC } from "react";
+import { VacancyList } from "../../components/vacancyList";
 import { FavoritesPageComponentType } from "./types";
 
-export const FavoritesPageComponent: FC<FavoritesPageComponentType> = (props) => {
+export const FavoritesPageComponent: FC<FavoritesPageComponentType> = (
+  props
+) => {
   const { vacancies } = props;
 
   return (

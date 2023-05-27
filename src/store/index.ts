@@ -1,8 +1,7 @@
-
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slice/authSlice";
-import vacancySlice from "./slice/vacancySlice";
 import filterSlice from "./slice/filterSlice";
+import vacancySlice from "./slice/vacancySlice";
 
 const store = configureStore({
   reducer: { authSlice, vacancySlice, filterSlice },
@@ -12,5 +11,5 @@ const store = configureStore({
 
 export default store;
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -1,24 +1,22 @@
-import "./Filter.scss";
-import { FC } from "react";
-import { Select, NumberInput, ActionIcon, Button } from "@mantine/core";
+import { ActionIcon, Button, NumberInput, Select } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
+import { FC } from "react";
+import "./styles.scss";
 import { FilterComponentType } from "./types";
 
 export const FilterComponent: FC<FilterComponentType> = (props) => {
-
   const {
     onSubmitHandler,
     filterIsLoading,
     onChangeIndustry,
     industryValue,
     cataloguesArr,
-    onChangeSalaryFrom, 
+    onChangeSalaryFrom,
     onChangeSalaryTo,
     salaryFromValue,
     salaryToValue,
     clearFilterHandle,
   } = props;
-
 
   return (
     <div className="filter">

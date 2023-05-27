@@ -1,11 +1,18 @@
 import { FC, useEffect } from "react";
-import { MainPageComponent } from "./MainPage";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, selectAuthError, selectIsAuth } from "../../store/slice/authSlice";
-import { selectFilter } from "../../store/slice/filterSlice";
-import { getAllVacancies, selectVacancies} from "../../store/slice/vacancySlice";
-import { AppDispatch } from "../../store";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
+import {
+  loginUser,
+  selectAuthError,
+  selectIsAuth,
+} from "../../store/slice/authSlice";
+import { selectFilter } from "../../store/slice/filterSlice";
+import {
+  getAllVacancies,
+  selectVacancies,
+} from "../../store/slice/vacancySlice";
+import { MainPageComponent } from "./MainPage";
 
 export const MainPage: FC = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -21,7 +28,7 @@ export const MainPage: FC = () => {
     } else {
       dispatch(getAllVacancies());
     }
-    if(error){
+    if (error) {
       navigate("/404");
     }
   }, [isAuth, isFilterChange, error]);
@@ -29,4 +36,4 @@ export const MainPage: FC = () => {
   return MainPageComponent({
     vacancies,
   });
-}
+};

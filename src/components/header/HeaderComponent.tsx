@@ -1,17 +1,16 @@
 import {
-  Header,
+  Burger,
   Container,
   Group,
-  Burger,
+  Header,
   Paper,
   Transition,
 } from "@mantine/core";
+import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../logo";
-import "./Header.scss";
-import { FC } from "react";
+import "./styles.scss";
 import { HeaderComponentType } from "./types";
-
 
 export const HeaderComponent: FC<HeaderComponentType> = (props) => {
   const { links, close, opened, toggle } = props;
@@ -54,4 +53,4 @@ export const HeaderComponent: FC<HeaderComponentType> = (props) => {
       </Container>
     </Header>
   );
-}
+};

@@ -1,4 +1,4 @@
-@import "../../style/variables.scss";
+@import "../../styles/variables.scss";
 
 .vacancy__description {
   padding: 24px;
@@ -6,7 +6,6 @@
   border: 1px solid $grey-200;
   border-radius: 8px;
 }
-
 .vacancy__header-container ~ .vacancy__description {
   margin-top: 20px;
 }

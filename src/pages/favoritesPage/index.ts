@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { FavoritesPageComponent } from "./FavoritesPage";
 import { useSelector } from "react-redux";
 import { selectFavoriteVacancies } from "../../store/slice/vacancySlice";
+import { FavoritesPageComponent } from "./FavoritesPage";
 
 export const FavoritesPage: FC = () => {
   const vacancies = useSelector(selectFavoriteVacancies);

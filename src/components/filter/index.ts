@@ -1,9 +1,15 @@
 import { FC, useEffect, useState } from "react";
-import { FilterComponent } from "./FilterComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store";
 import { selectIsAuth } from "../../store/slice/authSlice";
-import { filterChangeAllValue, filterClear, getCataloguesArr, selectCataloguesArr, selectIsLoading } from "../../store/slice/filterSlice";
+import {
+  filterChangeAllValue,
+  filterClear,
+  getCataloguesArr,
+  selectCataloguesArr,
+  selectIsLoading,
+} from "../../store/slice/filterSlice";
+import { FilterComponent } from "./FilterComponent";
 
 export const Filter: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,7 +61,7 @@ export const Filter: FC = () => {
     onChangeIndustry,
     industryValue: selectValue,
     cataloguesArr,
-    onChangeSalaryFrom, 
+    onChangeSalaryFrom,
     onChangeSalaryTo,
     salaryFromValue: inputFromValue,
     salaryToValue: inputToValue,

@@ -1,7 +1,7 @@
-import "./ButtonFavorite.scss";
 import { ActionIcon } from "@mantine/core";
 import { IconStar } from "@tabler/icons-react";
 import { FC } from "react";
+import "./styles.scss";
 import { ButtonFavoriteComponentType } from "./types";
 
 export const ButtonFavoriteComponent: FC<ButtonFavoriteComponentType> = (

@@ -6,8 +6,8 @@ export type FilterComponentType = {
   onChangeIndustry(val: string): void;
   industryValue: string;
   cataloguesArr: CatalogueType[];
-  onChangeSalaryFrom(val: number): void; 
-  onChangeSalaryTo(val: number): void; 
+  onChangeSalaryFrom(val: number): void;
+  onChangeSalaryTo(val: number): void;
   salaryFromValue: number;
   salaryToValue: number;
   clearFilterHandle(): void;

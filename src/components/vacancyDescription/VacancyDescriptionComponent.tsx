@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./VacancyDescription.scss";
+import "./styles.scss";
 import { VacancyDescriptionType } from "./types";
 
 export const VacancyDescriptionComponent: FC<VacancyDescriptionType> = (
