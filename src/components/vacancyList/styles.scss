@@ -1,12 +1,11 @@
 .vacancy {
   &__list {
-    min-height: 630px;
-    height: fit-content;
-    margin-bottom: 40px;
+    margin: 0 0 40px 0;
+    padding: 0;
   }
   &__text-empty {
-    margin-top: 40px;
     text-align: center;
+    margin: 40px 0 0 0;
   }
   &__pagination {
     margin-bottom: 40px;

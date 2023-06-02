@@ -27,17 +27,18 @@ const initialState = {
 export const getAllVacancies = createAsyncThunk(
   "vacancy/getAllVacancies",
   async (arg: void, api) => {
-    // const appState = api.getState() as RootState;
-    // const { authSlice, filterSlice } = appState;
-    // const { accessToken, currentUser } = authSlice;
-    // const autharization = `Bearer ${accessToken}`;
+    const appState = api.getState() as RootState;
+    const { filterSlice } = appState;
+    const { filter } = filterSlice;
+
     try {
-      const response = await fetchFilteredVacancie();
+      const response = await fetchFilteredVacancie(filter);
       if (!response.ok) {
         throw new Error(`Could not fetch vacancie, status: ${response.status}`);
       }
       const data = await response.json();
       return data;
+
     } catch (e) {
       throw e;
     }
@@ -47,10 +48,7 @@ export const getAllVacancies = createAsyncThunk(
 export const getVacancyByID = createAsyncThunk(
   "vacancy/getVacancyByID",
   async (id: number, api) => {
-    // const appState = api.getState() as RootState;
-    // const { authSlice } = appState;
-    // const { accessToken, currentUser } = authSlice;
-    // const autharization = `Bearer ${accessToken}`;
+ 
     try {
       const response = await fetchVacancyById(id);
       if (!response.ok) {
@@ -63,6 +61,7 @@ export const getVacancyByID = createAsyncThunk(
         throw new Error(`Invalid vacancy id`);
       }
       return data;
+      
     } catch (e) {
       throw e;
     }

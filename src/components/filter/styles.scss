@@ -6,7 +6,7 @@
     font-weight: 700;
     line-height: 20px;
     vertical-align: middle;
-    margin-bottom: 32px;
+    margin: 0 0 32px 0;
   }
   &__btn-submit {
     width: 100%;
@@ -25,21 +25,24 @@
   }
   &__btn-reset p {
     font-size: 14px;
+    margin: 0;
+    padding: 0;
   }
 }
-.mantine-Select-root {
+
+.filter .mantine-Select-root {
   margin-bottom: 20px;
 }
-.mantine-Select-label,
-.mantine-NumberInput-label {
+.filter .mantine-Select-label,
+.filter .mantine-NumberInput-label {
   font-size: 16px;
   font-weight: 700;
   line-height: 16px;
   margin-bottom: 8px;
 }
-.mantine-NumberInput-root {
+.filter .mantine-NumberInput-root {
   margin-bottom: 8px;
 }
-.mantine-NumberInput-root:last-of-type {
+.filter .mantine-NumberInput-root:last-of-type {
   margin-bottom: 20px;
 }

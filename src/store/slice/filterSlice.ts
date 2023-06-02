@@ -39,9 +39,7 @@ const initialState = {
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
   async (arg: void, api) => {
-    // const appState = api.getState() as RootState;
-    // const { accessToken, currentUser } = appState.authSlice;
-    // const autharization = `Bearer ${accessToken}`;
+
     try {
       const response: Response = await fetchCatalogues();
       if (!response.ok) {
@@ -54,6 +52,7 @@ export const getCataloguesArr = createAsyncThunk(
         return { value: elem.key, label: elem.title };
       });
       return cataloguesArr;
+      
     } catch (e) {
       throw e;
     }

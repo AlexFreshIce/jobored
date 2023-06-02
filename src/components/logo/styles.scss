@@ -3,16 +3,18 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-}
-.logo img {
-  display: block;
-  width: 100%;
-  height: fit-content;
-}
-.logo p {
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 36px;
-  letter-spacing: -0.014em;
+  
+  &__img {
+    display: block;
+    width: 100%;
+    height: fit-content;
+  }
+  &__title {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: -0.014em;
+  }
 }
