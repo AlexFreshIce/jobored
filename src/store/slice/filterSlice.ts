@@ -1,8 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_KEY, endpoints } from "../../api";
-import { customURL } from "../../api";
-import { CataloguesType } from "../../types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { fetchCatalogues } from "../../api";
+import { CataloguesType } from "../../types";
 
 interface IFilterState {
   filter: {
@@ -22,7 +21,7 @@ interface IFilterState {
 
 const initialState = {
   filter: {
-    published: 1,
+    // published: 1,
     // catalogues: "33",
     catalogues: null,
     payment_from: null,
@@ -40,34 +39,20 @@ const initialState = {
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
   async (arg: void, api) => {
-    const appState = api.getState() as RootState;
-    const { accessToken, currentUser } = appState.authSlice;
-    const cataloguesURL = customURL(endpoints.FILTER.CATALOGUES);
-    const autharization = `Bearer ${accessToken}`;
+    // const appState = api.getState() as RootState;
+    // const { accessToken, currentUser } = appState.authSlice;
+    // const autharization = `Bearer ${accessToken}`;
     try {
-      const response = await fetch(cataloguesURL, {
-        method: "GET",
-        body: null,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: autharization,
-          "X-Api-App-Id": currentUser.client_secret,
-          ...API_KEY,
-        },
-      });
-
+      const response: Response = await fetchCatalogues();
       if (!response.ok) {
         throw new Error(
-          `Could not fetch ${cataloguesURL}, status: ${response.status}`
+          `Could not fetch catalogues, status: ${response.status}`
         );
       }
-
       const data = await response.json();
-
       const cataloguesArr = data.map((elem: { key: number; title: string }) => {
         return { value: elem.key, label: elem.title };
       });
-
       return cataloguesArr;
     } catch (e) {
       throw e;
@@ -137,11 +122,17 @@ export const {
   changeCurrentPage,
 } = filterSlice.actions;
 
-export const selectFromValue = (state:RootState) => state.filterSlice.filter.payment_from;
-export const selectToValue = (state:RootState) => state.filterSlice.filter.payment_to;
-export const selectCatalogues = (state:RootState) => state.filterSlice.filter.catalogues;
-export const selectKeyword = (state:RootState) => state.filterSlice.filter.keyword;
-export const selectPage = (state:RootState) => state.filterSlice.filter.page;
-export const selectCataloguesArr = (state:RootState) => state.filterSlice.cataloguesArr;
-export const selectIsLoading = (state:RootState) => state.filterSlice.isLoading;
-export const selectFilter = (state:RootState) => state.filterSlice;
+export const selectFromValue = (state: RootState) =>
+  state.filterSlice.filter.payment_from;
+export const selectToValue = (state: RootState) =>
+  state.filterSlice.filter.payment_to;
+export const selectCatalogues = (state: RootState) =>
+  state.filterSlice.filter.catalogues;
+export const selectKeyword = (state: RootState) =>
+  state.filterSlice.filter.keyword;
+export const selectPage = (state: RootState) => state.filterSlice.filter.page;
+export const selectCataloguesArr = (state: RootState) =>
+  state.filterSlice.cataloguesArr;
+export const selectIsLoading = (state: RootState) =>
+  state.filterSlice.isLoading;
+export const selectFilter = (state: RootState) => state.filterSlice.filter;

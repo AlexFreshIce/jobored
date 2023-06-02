@@ -1,6 +1,12 @@
-export const API_URL = "https://startup-summer-2023-proxy.onrender.com";
+// export const API_URL = "https://startup-summer-2023-proxy.onrender.com";
+// export const API_URL = "https://api.superjob.ru";
 
-export const API_KEY = { "x-secret-key": "GEU4nvd3rej*jeh.eqp" };
+// export const API_KEY = { "x-secret-key": "GEU4nvd3rej*jeh.eqp" };
+
+export const API_KEY = {
+  "X-Api-App-Id":
+    "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948",
+};
 
 export type PropertiesType = {
   [key: string]: any;
@@ -19,8 +25,22 @@ export const endpoints = {
   },
 };
 
-export const customURL = (endpoint: string, properties?: PropertiesType) => {
-  let customURL = API_URL + endpoint;
+const customFetch = async (
+  url: string,
+  method = "GET",
+  body = null,
+  headers = {
+    Host: "api.superjob.ru",
+    "Content-Type": "application/x-www-form-urlencoded",
+    ...API_KEY,
+  }
+) => {
+  return await fetch(url, { method, body, headers });
+};
+
+export const customURL = (endpoint: string, properties: PropertiesType) => {
+  // let customURL = API_URL + endpoint;
+  let customURL = `/api${endpoint}`;
   let isFirst = true;
   for (let property in properties) {
     if (
@@ -50,4 +70,19 @@ export const customURL = (endpoint: string, properties?: PropertiesType) => {
     customURL += "&no_agreement=1";
   }
   return customURL;
+};
+
+export const fetchVacancyById = async (id: number) => {
+  const url = `/api${endpoints.VACANCY.ID + id}/`;
+  return await customFetch(url);
+};
+export const fetchFilteredVacancie = async (
+  properties: PropertiesType = null
+) => {
+  const url = customURL(endpoints.VACANCY.SEARCH, properties);
+  return await customFetch(url);
+};
+export const fetchCatalogues = async () => {
+  const url = `/api${endpoints.FILTER.CATALOGUES}`;
+  return await customFetch(url);
 };

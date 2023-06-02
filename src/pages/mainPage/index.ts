@@ -15,7 +15,8 @@ import {
 import { MainPageComponent } from "./MainPage";
 
 export const MainPage: FC = () => {
-  const isAuth = useSelector(selectIsAuth);
+  const isAuth = true
+  // const isAuth = useSelector(selectIsAuth);
   const isFilterChange = useSelector(selectFilter);
   const vacancies = useSelector(selectVacancies);
   const dispatch = useDispatch<AppDispatch>();
@@ -24,13 +25,14 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     if (!isAuth) {
-      dispatch(loginUser());
+      // dispatch(loginUser());
     } else {
       dispatch(getAllVacancies());
     }
     if (error) {
       navigate("/404");
     }
+  
   }, [isAuth, isFilterChange, error]);
 
   return MainPageComponent({
