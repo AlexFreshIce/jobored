@@ -6,9 +6,9 @@ import { CataloguesType } from "../../types";
 interface IFilterState {
   filter: {
     published: number;
-    catalogues: null | string;
-    payment_from: null | number;
-    payment_to: null | number;
+    catalogues: string | null;
+    payment_from: number | null;
+    payment_to: number | null;
     keyword: string;
     no_agreement?: number;
     page: number;
@@ -39,7 +39,6 @@ const initialState = {
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
   async (arg: void, api) => {
-
     try {
       const response: Response = await fetchCatalogues();
       if (!response.ok) {
@@ -52,7 +51,6 @@ export const getCataloguesArr = createAsyncThunk(
         return { value: elem.key, label: elem.title };
       });
       return cataloguesArr;
-      
     } catch (e) {
       throw e;
     }

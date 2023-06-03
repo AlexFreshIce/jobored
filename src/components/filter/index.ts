@@ -1,24 +1,25 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store";
-import { selectIsAuth } from "../../store/slice/authSlice";
 import {
   filterChangeAllValue,
   filterClear,
   getCataloguesArr,
   selectCataloguesArr,
+  selectFilter,
   selectIsLoading,
 } from "../../store/slice/filterSlice";
 import { FilterComponent } from "./FilterComponent";
 
 export const Filter: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [selectValue, setSelectValue] = useState("");
-  const [inputFromValue, setInputFromValue] = useState(0);
-  const [inputToValue, setInputToValue] = useState(0);
-  const isAuth = useSelector(selectIsAuth);
   const cataloguesArr = useSelector(selectCataloguesArr);
   const filterIsLoading = useSelector(selectIsLoading);
+  const currentFilterValue = useSelector(selectFilter);
+  const { catalogues, payment_from, payment_to } = currentFilterValue;
+  const [selectValue, setSelectValue] = useState(catalogues);
+  const [inputFromValue, setInputFromValue] = useState(payment_from);
+  const [inputToValue, setInputToValue] = useState(payment_to);
 
   const onChangeIndustry = (val: string) => {
     setSelectValue(val);
@@ -50,10 +51,8 @@ export const Filter: FC = () => {
   };
 
   useEffect(() => {
-    if (isAuth) {
       dispatch(getCataloguesArr());
-    }
-  }, [isAuth]);
+  }, []);
 
   return FilterComponent({
     onSubmitHandler,

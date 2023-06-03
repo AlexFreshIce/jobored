@@ -6,6 +6,9 @@
   border: 1px solid $grey-200;
   border-radius: 8px;
 }
+.vacancy__description p:first-of-type{margin-top: 0;}
+.vacancy__description p:last-of-type{margin-bottom: 0;}
+
 .vacancy__header-container ~ .vacancy__description {
   margin-top: 20px;
 }

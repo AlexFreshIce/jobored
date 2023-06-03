@@ -7,15 +7,15 @@ import { FilterComponentType } from "./types";
 export const FilterComponent: FC<FilterComponentType> = (props) => {
   const {
     onSubmitHandler,
-    filterIsLoading,
     onChangeIndustry,
-    industryValue,
-    cataloguesArr,
     onChangeSalaryFrom,
     onChangeSalaryTo,
+    clearFilterHandle,
+    filterIsLoading,
+    industryValue,
     salaryFromValue,
     salaryToValue,
-    clearFilterHandle,
+    cataloguesArr,
   } = props;
 
   return (
@@ -53,12 +53,13 @@ export const FilterComponent: FC<FilterComponentType> = (props) => {
 
         <NumberInput
           data-elem="salary-to-input"
-          min={salaryFromValue}
+          min={0}
           step={1000}
           onChange={onChangeSalaryTo}
           value={salaryToValue || ""}
           placeholder="До"
         />
+
         <Button
           data-elem="search-button"
           className="filter__btn-submit"
