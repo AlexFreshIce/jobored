@@ -35,6 +35,6 @@ export const VacancyListComponent: FC<VacancyListComponentType> = (props) => {
       />
     </>
   ) : (
-    <h4 className="vacancy__text-empty">Вакансий нет!</h4>
+    <h4 className="vacancy__text-empty">Вакансии не найдены.</h4>
   );
 };

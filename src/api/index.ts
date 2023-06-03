@@ -1,12 +1,11 @@
+import { CustomURLType, PropertiesType } from "./types";
+
 // export const API_URL = "https://api.superjob.ru";
+// API_KEY in real project will be in .env
 export const API_KEY = {
   "X-Api-App-Id":
     "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948",
 };
-
-export type PropertiesType = {
-  [key: string]: any;
-} | null;
 
 export const endpoints = {
   AUTH: {
@@ -34,31 +33,31 @@ const customFetch = async (
   return await fetch(url, { method, body, headers });
 };
 
-export const customURL = (endpoint: string, properties: PropertiesType) => {
+export const customURL: CustomURLType = (endpoint, properties = null) => {
   let customURL = `/api${endpoint}`;
   let isFirst = true;
-  for (let property in properties) {
-    if (
-      !properties[property] ||
-      properties[property] === "" ||
-      properties[property] === "0"
-    ) {
-      continue;
-    }
-    if (property === "keyword") {
-      const encodeKeyword = encodeURI(properties[property]);
+  if (properties) {
+    for (let property in properties) {
+      if (!properties[property] || properties[property] === "0") {
+        continue;
+      }
+      let propertyValue: string | number;
+      switch (property) {
+        case "page":
+          propertyValue = properties[property] - 1;
+          break;
+        case "keyword":
+          propertyValue = encodeURI(properties[property]);
+          break;
+        default:
+          propertyValue = properties[property];
+      }
       if (isFirst) {
-        customURL += `?${property}=${encodeKeyword}`;
+        customURL += `?${property}=${propertyValue}`;
         isFirst = false;
       } else {
-        customURL += `&${property}=${encodeKeyword}`;
+        customURL += `&${property}=${propertyValue}`;
       }
-    }
-    if (isFirst) {
-      customURL += `?${property}=${properties[property]}`;
-      isFirst = false;
-    } else {
-      customURL += `&${property}=${properties[property]}`;
     }
   }
   if (customURL.includes("payment")) {
@@ -71,12 +70,14 @@ export const fetchVacancyById = async (id: number) => {
   const url = `/api${endpoints.VACANCY.ID + id}/`;
   return await customFetch(url);
 };
+
 export const fetchFilteredVacancie = async (
   properties: PropertiesType = null
 ) => {
   const url = customURL(endpoints.VACANCY.SEARCH, properties);
   return await customFetch(url);
 };
+
 export const fetchCatalogues = async () => {
   const url = `/api${endpoints.FILTER.CATALOGUES}`;
   return await customFetch(url);
