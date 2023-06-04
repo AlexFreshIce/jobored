@@ -1,0 +1,13 @@
+.vacancy {
+  &__list {
+    margin: 0 0 40px 0;
+    padding: 0;
+  }
+  &__text-empty {
+    text-align: center;
+    margin: 40px 0 0 0;
+  }
+  &__pagination {
+    margin-bottom: 40px;
+  }
+}

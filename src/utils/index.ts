@@ -33,11 +33,9 @@ export const changeFavoritesInLocalStorage = (
       case "add":
         return [...objects, vacancy];
       case "remove":
-        return objects.filter(
-          (item: { id: number }) => item.id !== id
-        );
+        return objects.filter((item: { id: number }) => item.id !== id);
     }
-  }
+  };
 
   const newVacancies = getNewVacanciesArray();
 

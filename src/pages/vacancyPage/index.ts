@@ -1,14 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { VacancyPageComponent } from "./VacancyPage";
-import { AppDispatch } from "../../store";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppDispatch } from "../../store";
 import {
   getVacancyByID,
   selectCurrentVacancy,
   selectVacancyError,
   selectVacancyIsLoading,
 } from "../../store/slice/vacancySlice";
-import { useEffect } from "react";
+import { VacancyPageComponent } from "./VacancyPage";
 
 export const VacancyPage = () => {
   const { vacancyID } = useParams();

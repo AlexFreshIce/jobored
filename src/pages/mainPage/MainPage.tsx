@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Filter } from "../../components/filter";
 import { Search } from "../../components/search";
 import { VacancyList } from "../../components/vacancyList";
-import "./MainPage.scss";
+import "./styles.scss";
 import { MainPageComponentType } from "./types";
 
 export const MainPageComponent: FC<MainPageComponentType> = (props) => {

@@ -2,13 +2,13 @@ import { CatalogueType } from "../../types";
 
 export type FilterComponentType = {
   onSubmitHandler(event: React.FormEvent<HTMLFormElement>): void;
-  filterIsLoading: boolean;
   onChangeIndustry(val: string): void;
-  industryValue: string;
-  cataloguesArr: CatalogueType[];
-  onChangeSalaryFrom(val: number): void; 
-  onChangeSalaryTo(val: number): void; 
-  salaryFromValue: number;
-  salaryToValue: number;
+  onChangeSalaryFrom(val: number): void;
+  onChangeSalaryTo(val: number): void;
   clearFilterHandle(): void;
+  filterIsLoading: boolean;
+  industryValue: string | null;
+  salaryFromValue: number | null;
+  salaryToValue: number | null;
+  cataloguesArr: CatalogueType[];
 };

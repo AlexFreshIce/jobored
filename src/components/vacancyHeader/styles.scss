@@ -1,44 +1,46 @@
-@import "../../style/variables.scss";
+@import "../../styles/variables.scss";
 
 .vacancy {
   &__header {
     padding: 24px;
     position: relative;
-    // list-style-type: none;
     border: 1px solid $grey-200;
     border-radius: 8px;
-    // margin-bottom: 16px;
-    // a{text-decoration: none;}
   }
   &__title {
     color: $blue-500-main;
     font-weight: 600;
     font-size: 20px;
     line-height: 24px;
-    margin-bottom: 12px;
-    max-width: 88%;
+    margin: 0 24px 12px 0;
   }
   &__text-firm {
     line-height: 24px;
-    margin-bottom: 12px;
+    margin: 0 0 12px 0;
+    padding: 0;
   }
   &__text-salary {
     display: inline-block;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin: 0 0 12px 0;
+    padding: 0;
   }
   &__text-employment {
     display: inline-block;
-    margin-bottom: 12px;
+    margin: 0 0 12px 0;
+    padding: 0;
   }
   &__text-dot {
     color: $grey-600;
     display: inline;
+    margin: 0;
     padding: 0 12px;
   }
   &__text-location {
     vertical-align: middle;
     line-height: 20px;
+    margin: 0;
+    padding: 0;
   }
   &__text-location svg {
     vertical-align: middle;

@@ -1,24 +1,22 @@
-import "./Filter.scss";
-import { FC } from "react";
-import { Select, NumberInput, ActionIcon, Button } from "@mantine/core";
+import { ActionIcon, Button, NumberInput, Select } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
+import { FC } from "react";
+import "./styles.scss";
 import { FilterComponentType } from "./types";
 
 export const FilterComponent: FC<FilterComponentType> = (props) => {
-
   const {
     onSubmitHandler,
-    filterIsLoading,
     onChangeIndustry,
-    industryValue,
-    cataloguesArr,
-    onChangeSalaryFrom, 
+    onChangeSalaryFrom,
     onChangeSalaryTo,
+    clearFilterHandle,
+    filterIsLoading,
+    industryValue,
     salaryFromValue,
     salaryToValue,
-    clearFilterHandle,
+    cataloguesArr,
   } = props;
-
 
   return (
     <div className="filter">
@@ -28,15 +26,14 @@ export const FilterComponent: FC<FilterComponentType> = (props) => {
           data-elem="industry-select"
           label="Отрасль"
           placeholder="Выберете отрасль"
+          selectOnBlur
           allowDeselect
-          disabled={filterIsLoading}
           // searchable
           // clearable
+          // initiallyOpened
+          disabled={filterIsLoading}
           onChange={onChangeIndustry}
           value={industryValue}
-          selectOnBlur
-          // nothingFound="Отрасль не найдена"
-          // initiallyOpened
           data={cataloguesArr}
           rightSection={<IconChevronDown size="1rem" />}
           rightSectionWidth={40}
@@ -55,12 +52,13 @@ export const FilterComponent: FC<FilterComponentType> = (props) => {
 
         <NumberInput
           data-elem="salary-to-input"
-          min={salaryFromValue}
+          min={0}
           step={1000}
           onChange={onChangeSalaryTo}
           value={salaryToValue || ""}
           placeholder="До"
         />
+
         <Button
           data-elem="search-button"
           className="filter__btn-submit"

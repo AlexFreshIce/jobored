@@ -1,9 +1,8 @@
-@import "../../style/variables.scss";
-
 .vacancy {
   &__item {
     position: relative;
-    margin-bottom: 16px;
+    margin: 0 0 16px 0;
+    padding: 0;
     list-style-type: none;
     a {
       text-decoration: none;

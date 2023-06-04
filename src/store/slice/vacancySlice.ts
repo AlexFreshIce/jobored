@@ -1,21 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_KEY, endpoints } from "../../api";
-import { customURL } from "../../api";
-import { VacanciesType, VacancyType } from "../../types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { fetchFilteredVacancie, fetchVacancyById } from "../../api";
+import { VacancyStateType } from "./types";
 
 const favoriteVacanciesFromStorage = localStorage.getItem("favoriteVacancies");
 const favoriteVacancies = favoriteVacanciesFromStorage
   ? JSON.parse(favoriteVacanciesFromStorage)
   : { objects: [], total: 0 };
-
-interface IVacancyState {
-  vacancies: VacanciesType;
-  isLoading: boolean;
-  error: null | {};
-  currentVacancy: null | VacancyType;
-  favoriteVacancies: VacanciesType;
-}
 
 const initialState = {
   vacancies: { objects: [], total: 0 },
@@ -23,36 +14,20 @@ const initialState = {
   error: null,
   currentVacancy: null,
   favoriteVacancies,
-} as IVacancyState;
+} as VacancyStateType;
 
 export const getAllVacancies = createAsyncThunk(
   "vacancy/getAllVacancies",
   async (arg: void, api) => {
     const appState = api.getState() as RootState;
-    const { authSlice, filterSlice } = appState;
-    const { accessToken, currentUser } = authSlice;
-    const { filter } = filterSlice;
-    const loginURL = customURL(endpoints.VACANCY.SEARCH, filter);
-    const autharization = `Bearer ${accessToken}`;
+    const { filter } = appState.filterSlice;
+    const { client_secret } = appState.authSlice.currentUser;
 
     try {
-      const response = await fetch(loginURL, {
-        method: "GET",
-        body: null,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: autharization,
-          "X-Api-App-Id": currentUser.client_secret,
-          ...API_KEY,
-        },
-      });
-
+      const response = await fetchFilteredVacancie(filter, client_secret);
       if (!response.ok) {
-        throw new Error(
-          `Could not fetch ${loginURL}, status: ${response.status}`
-        );
+        throw new Error(`Could not fetch vacancie, status: ${response.status}`);
       }
-
       const data = await response.json();
       return data;
     } catch (e) {
@@ -65,29 +40,15 @@ export const getVacancyByID = createAsyncThunk(
   "vacancy/getVacancyByID",
   async (id: number, api) => {
     const appState = api.getState() as RootState;
-    const { authSlice } = appState;
-    const { accessToken, currentUser } = authSlice;
-    const loginURL = customURL(endpoints.VACANCY.ID, null) + id;
-    const autharization = `Bearer ${accessToken}`;
+    const { client_secret } = appState.authSlice.currentUser;
     try {
-      const response = await fetch(loginURL, {
-        method: "GET",
-        body: null,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: autharization,
-          "X-Api-App-Id": currentUser.client_secret,
-          ...API_KEY,
-        },
-      });
-
+      const response = await fetchVacancyById(id, client_secret);
       if (!response.ok) {
         throw new Error(
-          `Could not fetch ${loginURL}, status: ${response.status}`
+          `Could not fetch vacancy id:${id}, status: ${response.status}`
         );
       }
       const data = await response.json();
-
       if (data.total) {
         throw new Error(`Invalid vacancy id`);
       }
@@ -105,7 +66,6 @@ const vacancySlice = createSlice({
     addToFavorites: (state, { payload }) => {
       const objects = [...state.favoriteVacancies.objects, payload];
       const total = objects.length;
-
       return {
         ...state,
         favoriteVacancies: {
@@ -151,7 +111,6 @@ const vacancySlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getVacancyByID.rejected, (state, action) => {
-        // state.currentVacancy = null
         state.isLoading = false;
         state.error = action.error;
       })
@@ -160,7 +119,9 @@ const vacancySlice = createSlice({
 });
 
 export default vacancySlice.reducer;
+
 export const { addToFavorites, deleteFromFavorites } = vacancySlice.actions;
+
 export const selectVacancies = (state: RootState) =>
   state.vacancySlice.vacancies;
 export const selectFavoriteVacancies = (state: RootState) =>

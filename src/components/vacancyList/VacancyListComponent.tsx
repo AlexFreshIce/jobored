@@ -1,9 +1,9 @@
-import "./VacancyList.scss";
-import { FC } from "react";
 import { Pagination } from "@mantine/core";
-import { VacancyListItem } from "../vacancyListItem";
-import { Spinner } from "../spinner";
+import { FC } from "react";
 import { VacancyType } from "../../types";
+import { Spinner } from "../spinner";
+import { VacancyListItem } from "../vacancyListItem";
+import "./styles.scss";
 import { VacancyListComponentType } from "./type";
 
 export const VacancyListComponent: FC<VacancyListComponentType> = (props) => {
@@ -35,6 +35,6 @@ export const VacancyListComponent: FC<VacancyListComponentType> = (props) => {
       />
     </>
   ) : (
-    <h4 className="vacancy__text-empty">Вакансий нет!</h4>
+    <h4 className="vacancy__text-empty">Вакансии не найдены.</h4>
   );
 };

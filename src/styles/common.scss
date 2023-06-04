@@ -3,42 +3,25 @@
 
 * {
   font-family: "Inter", sans-serif;
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   color: $main-color;
 }
 
-ul,
-li {
-  margin: 0;
-  padding: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-}
-
-p {
-  margin: 0;
-  padding: 0;
+input {
+  caret-color: $blue-500-main;
 }
 
 .mantine-Pagination-control[data-active] {
   background-color: $blue-500-main;
 }
+
 .mantine-Pagination-control:not([data-disabled]):hover,
 .mantine-Pagination-control[data-active]:not([data-disabled]):hover {
   background-color: $blue-400;
   color: $white;
 }
 
-.mantine-Pagination-control:hover:not(:disabled) svg path{
+.mantine-Pagination-control:hover:not(:disabled) svg path {
   stroke: $white;
   fill: $white;
 }
@@ -73,17 +56,6 @@ p {
   }
 }
 
-// .mantine-ActionIcon-root  svg {
-//   stroke: $grey-500;
-//   &:hover {
-//     stroke: $blue-400;
-//   }
-//   &:active {
-//     stroke: $blue-500-main;
-//     fill: $blue-500-main;
-//   }
-// }
-
 .mantine-ActionIcon-root > p {
   color: $grey-500;
   &:hover {
@@ -110,6 +82,7 @@ p {
 .mantine-NumberInput-controlDown svg:hover {
   stroke: $blue-400;
 }
+
 .mantine-NumberInput-input:focus ~ .mantine-NumberInput-rightSection svg,
 .mantine-Select-input:focus ~ .mantine-Input-rightSection svg,
 // .mantine-Input-rightSection svg:active,

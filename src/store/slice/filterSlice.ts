@@ -1,73 +1,37 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_KEY, endpoints } from "../../api";
-import { customURL } from "../../api";
-import { CataloguesType } from "../../types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
-
-interface IFilterState {
-  filter: {
-    published: number;
-    catalogues: null | string;
-    payment_from: null | number;
-    payment_to: null | number;
-    keyword: string;
-    no_agreement?: number;
-    page: number;
-    count: number;
-  };
-  cataloguesArr: CataloguesType;
-  isLoading: boolean;
-  error: null | {};
-}
+import { fetchCatalogues } from "../../api";
+import { FilterStateType } from "./types";
 
 const initialState = {
   filter: {
     published: 1,
-    // catalogues: "33",
     catalogues: null,
     payment_from: null,
     payment_to: null,
     keyword: "",
-    // no_agreement:1,
     page: 1,
     count: 4,
   },
   cataloguesArr: [],
   isLoading: false,
   error: null,
-} as IFilterState;
+} as FilterStateType;
 
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
-  async (arg: void, api) => {
-    const appState = api.getState() as RootState;
-    const { accessToken, currentUser } = appState.authSlice;
-    const cataloguesURL = customURL(endpoints.FILTER.CATALOGUES);
-    const autharization = `Bearer ${accessToken}`;
+  async () => {
     try {
-      const response = await fetch(cataloguesURL, {
-        method: "GET",
-        body: null,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: autharization,
-          "X-Api-App-Id": currentUser.client_secret,
-          ...API_KEY,
-        },
-      });
-
+      const response: Response = await fetchCatalogues();
       if (!response.ok) {
         throw new Error(
-          `Could not fetch ${cataloguesURL}, status: ${response.status}`
+          `Could not fetch catalogues, status: ${response.status}`
         );
       }
-
       const data = await response.json();
-
       const cataloguesArr = data.map((elem: { key: number; title: string }) => {
         return { value: elem.key, label: elem.title };
       });
-
       return cataloguesArr;
     } catch (e) {
       throw e;
@@ -127,6 +91,7 @@ const filterSlice = createSlice({
 });
 
 export default filterSlice.reducer;
+
 export const {
   filterClear,
   filterChangeCatalogues,
@@ -137,11 +102,17 @@ export const {
   changeCurrentPage,
 } = filterSlice.actions;
 
-export const selectFromValue = (state:RootState) => state.filterSlice.filter.payment_from;
-export const selectToValue = (state:RootState) => state.filterSlice.filter.payment_to;
-export const selectCatalogues = (state:RootState) => state.filterSlice.filter.catalogues;
-export const selectKeyword = (state:RootState) => state.filterSlice.filter.keyword;
-export const selectPage = (state:RootState) => state.filterSlice.filter.page;
-export const selectCataloguesArr = (state:RootState) => state.filterSlice.cataloguesArr;
-export const selectIsLoading = (state:RootState) => state.filterSlice.isLoading;
-export const selectFilter = (state:RootState) => state.filterSlice;
+export const selectFromValue = (state: RootState) =>
+  state.filterSlice.filter.payment_from;
+export const selectToValue = (state: RootState) =>
+  state.filterSlice.filter.payment_to;
+export const selectCatalogues = (state: RootState) =>
+  state.filterSlice.filter.catalogues;
+export const selectKeyword = (state: RootState) =>
+  state.filterSlice.filter.keyword;
+export const selectPage = (state: RootState) => state.filterSlice.filter.page;
+export const selectCataloguesArr = (state: RootState) =>
+  state.filterSlice.cataloguesArr;
+export const selectIsLoading = (state: RootState) =>
+  state.filterSlice.isLoading;
+export const selectFilter = (state: RootState) => state.filterSlice.filter;

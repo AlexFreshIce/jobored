@@ -1,6 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import { ButtonFavoriteType } from "./types";
-import { ButtonFavoriteComponent } from "./ButtonFavoriteComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store";
 import {
@@ -9,6 +7,8 @@ import {
   selectFavoriteVacancies,
 } from "../../store/slice/vacancySlice";
 import { changeFavoritesInLocalStorage } from "../../utils";
+import { ButtonFavoriteComponent } from "./ButtonFavoriteComponent";
+import { ButtonFavoriteType } from "./types";
 
 export const ButtonFavorite: FC<ButtonFavoriteType> = (props) => {
   const { vacancy } = props;

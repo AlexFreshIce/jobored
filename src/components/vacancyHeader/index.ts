@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { VacancyHeaderType } from "./types";
 import { salary } from "../../utils";
 import { VacancyHeaderComponent } from "./VacancyHeaderComponent";
+import { VacancyHeaderType } from "./types";
 
 export const VacancyHeader: FC<VacancyHeaderType> = (props) => {
   const { vacancy } = props;

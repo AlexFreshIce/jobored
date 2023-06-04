@@ -1,14 +1,25 @@
 import { FC, useEffect } from "react";
-import { MainPageComponent } from "./MainPage";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, selectAuthError, selectIsAuth } from "../../store/slice/authSlice";
-import { selectFilter } from "../../store/slice/filterSlice";
-import { getAllVacancies, selectVacancies} from "../../store/slice/vacancySlice";
-import { AppDispatch } from "../../store";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
+import {
+  loginUser,
+  refreshToken,
+  selectAuthError,
+  selectIsAuth,
+  selectTtl,
+} from "../../store/slice/authSlice";
+import { selectFilter } from "../../store/slice/filterSlice";
+import {
+  getAllVacancies,
+  selectVacancies,
+} from "../../store/slice/vacancySlice";
+import { MainPageComponent } from "./MainPage";
 
 export const MainPage: FC = () => {
   const isAuth = useSelector(selectIsAuth);
+  const ttl = useSelector(selectTtl);
+  const isTokenActive = ttl > Date.now() / 1000;
   const isFilterChange = useSelector(selectFilter);
   const vacancies = useSelector(selectVacancies);
   const dispatch = useDispatch<AppDispatch>();
@@ -18,15 +29,18 @@ export const MainPage: FC = () => {
   useEffect(() => {
     if (!isAuth) {
       dispatch(loginUser());
+    } else if (!isTokenActive) {
+      dispatch(refreshToken());
     } else {
       dispatch(getAllVacancies());
     }
-    if(error){
+
+    if (error) {
       navigate("/404");
     }
-  }, [isAuth, isFilterChange, error]);
+  }, [isAuth, isTokenActive, isFilterChange, error]);
 
   return MainPageComponent({
     vacancies,
   });
-}
+};

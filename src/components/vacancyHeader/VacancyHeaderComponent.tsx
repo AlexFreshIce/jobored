@@ -1,18 +1,12 @@
-import "./VacancyHeader.scss";
 import { IconMapPin } from "@tabler/icons-react";
 import { FC } from "react";
+import "./styles.scss";
 import { VacancyHeaderComponentType } from "./types";
 
 export const VacancyHeaderComponent: FC<VacancyHeaderComponentType> = (
   props
 ) => {
-  const {
-    profession,
-    firm_name,
-    town,
-    type_of_work,
-    resoultSalary,
-  } = props;
+  const { profession, firm_name, town, type_of_work, resoultSalary } = props;
 
   return (
     <div className="vacancy__header">
