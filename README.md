@@ -1,7 +1,7 @@
 # Jobored
 
-## Автор: Лукьянов А.В.
+## Autor: Lukyanau A.
 
-#### Технологии: HTML5, CSS, Sass, JavaScript, Typescript, React, Redux toolkit, Mantine ui. 
+#### Tech stack: HTML5, CSS, Sass, JavaScript, Typescript, React, Redux toolkit, Mantine ui. 
   
-[Ссылка на страницу ](https://creative-frangipane-877ca7.netlify.app/)
+[Link](https://frabjous-profiterole-702437.netlify.app/)
