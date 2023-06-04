@@ -1,20 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { fetchFilteredVacancie, fetchVacancyById } from "../../api";
-import { VacanciesType, VacancyType } from "../../types";
+import { VacancyStateType } from "./types";
 
 const favoriteVacanciesFromStorage = localStorage.getItem("favoriteVacancies");
 const favoriteVacancies = favoriteVacanciesFromStorage
   ? JSON.parse(favoriteVacanciesFromStorage)
   : { objects: [], total: 0 };
-
-interface IVacancyState {
-  vacancies: VacanciesType;
-  isLoading: boolean;
-  error: null | {};
-  currentVacancy: null | VacancyType;
-  favoriteVacancies: VacanciesType;
-}
 
 const initialState = {
   vacancies: { objects: [], total: 0 },
@@ -22,23 +14,22 @@ const initialState = {
   error: null,
   currentVacancy: null,
   favoriteVacancies,
-} as IVacancyState;
+} as VacancyStateType;
 
 export const getAllVacancies = createAsyncThunk(
   "vacancy/getAllVacancies",
   async (arg: void, api) => {
     const appState = api.getState() as RootState;
-    const { filterSlice } = appState;
-    const { filter } = filterSlice;
+    const { filter } = appState.filterSlice;
+    const { client_secret } = appState.authSlice.currentUser;
 
     try {
-      const response = await fetchFilteredVacancie(filter);
+      const response = await fetchFilteredVacancie(filter, client_secret);
       if (!response.ok) {
         throw new Error(`Could not fetch vacancie, status: ${response.status}`);
       }
       const data = await response.json();
       return data;
-
     } catch (e) {
       throw e;
     }
@@ -48,9 +39,10 @@ export const getAllVacancies = createAsyncThunk(
 export const getVacancyByID = createAsyncThunk(
   "vacancy/getVacancyByID",
   async (id: number, api) => {
- 
+    const appState = api.getState() as RootState;
+    const { client_secret } = appState.authSlice.currentUser;
     try {
-      const response = await fetchVacancyById(id);
+      const response = await fetchVacancyById(id, client_secret);
       if (!response.ok) {
         throw new Error(
           `Could not fetch vacancy id:${id}, status: ${response.status}`
@@ -61,7 +53,6 @@ export const getVacancyByID = createAsyncThunk(
         throw new Error(`Invalid vacancy id`);
       }
       return data;
-      
     } catch (e) {
       throw e;
     }
@@ -120,7 +111,6 @@ const vacancySlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getVacancyByID.rejected, (state, action) => {
-        // state.currentVacancy = null
         state.isLoading = false;
         state.error = action.error;
       })
@@ -129,7 +119,9 @@ const vacancySlice = createSlice({
 });
 
 export default vacancySlice.reducer;
+
 export const { addToFavorites, deleteFromFavorites } = vacancySlice.actions;
+
 export const selectVacancies = (state: RootState) =>
   state.vacancySlice.vacancies;
 export const selectFavoriteVacancies = (state: RootState) =>

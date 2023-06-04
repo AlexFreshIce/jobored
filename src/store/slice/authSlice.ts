@@ -1,25 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_KEY, endpoints } from "../../api";
-import { customURL } from "../../api";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { fetchAuth, fetchRefreshToken } from "../../api";
+import { AuthStateType } from "./types";
 
-interface IAuthState {
-  currentUser: {
-    login: string;
-    password: string;
-    client_id: string;
-    client_secret: string;
-    hr: string;
-  };
-  accessToken: string | null;
-  isAuth: boolean;
-  isLoading: boolean;
-  error: null | {};
-}
+const accessToken = localStorage.getItem("accessToken");
 
-const accessToken = localStorage.getItem("accessToken")
-  ? localStorage.getItem("accessToken")
-  : null;
+const ttlFromStorage = localStorage.getItem("ttl");
+const ttl = ttlFromStorage ? ttlFromStorage : 0;
 
 const isAuth = accessToken ? true : false;
 
@@ -33,34 +20,62 @@ const initialState = {
     hr: "0",
   },
   accessToken,
+  ttl,
   isAuth,
   isLoading: false,
   error: null,
-} as IAuthState;
+} as AuthStateType;
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (arg: void, api) => {
     const appState = api.getState() as RootState;
     const currentUser = appState.authSlice.currentUser;
-    const loginURL = customURL(endpoints.AUTH.LOGIN, currentUser);
 
     try {
-      const response = await fetch(loginURL, {
-        method: "GET",
-        body: null,
-        headers: { "Content-Type": "application/json", ...API_KEY },
+      const response: Response = await fetchAuth(currentUser);
+
+      if (!response.ok) {
+        throw new Error(`Could not fetch login, status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      localStorage.setItem("accessToken", data.access_token);
+      localStorage.setItem("ttl", data.ttl);
+      localStorage.setItem("refreshToken", data.refresh_token);
+
+      return data;
+    } catch (e) {
+      throw e;
+    }
+  }
+);
+export const refreshToken = createAsyncThunk(
+  "auth/refreshToken",
+  async (arg: void, api) => {
+    const appState = api.getState() as RootState;
+    const { client_id, client_secret } = appState.authSlice.currentUser;
+    const refToken = localStorage.getItem("refreshToken")
+      ? localStorage.getItem("refreshToken")
+      : null;
+    try {
+      const response: Response = await fetchRefreshToken({
+        refresh_token: refToken,
+        client_id,
+        client_secret,
       });
 
       if (!response.ok) {
         throw new Error(
-          `Could not fetch ${loginURL}, status: ${response.status}`
+          `Could not fetch refresh token, status: ${response.status}`
         );
       }
 
       const data = await response.json();
 
       localStorage.setItem("accessToken", data.access_token);
+      localStorage.setItem("ttl", data.ttl);
       localStorage.setItem("refreshToken", data.refresh_token);
 
       return data;
@@ -79,18 +94,34 @@ const authSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.isAuth = false;
         state.accessToken = null;
+        state.ttl = 0;
         state.isLoading = true;
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isAuth = true;
         state.accessToken = action.payload.access_token;
+        state.ttl = action.payload.ttl;
         state.isLoading = false;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuth = false;
         state.isLoading = false;
         state.error = action.error;
+      })
+      .addCase(refreshToken.pending, (state) => {
+        state.accessToken = null;
+        state.ttl = 0;
+        state.isLoading = true;
+      })
+      .addCase(refreshToken.fulfilled, (state, action) => {
+        state.accessToken = action.payload.access_token;
+        state.ttl = action.payload.ttl;
+        state.isLoading = false;
+      })
+      .addCase(refreshToken.rejected, (state, action) => {
+        state.isAuth = false;
+        state.isLoading = false;
       })
       .addDefaultCase(() => {});
   },
@@ -100,8 +131,8 @@ export default authSlice.reducer;
 
 export const selectAccessToken = (state: RootState) =>
   state.authSlice.accessToken;
+export const selectTtl = (state: RootState) => state.authSlice.ttl;
 export const selectIsAuth = (state: RootState) => state.authSlice.isAuth;
 export const selectAuthIsLoading = (state: RootState) =>
   state.authSlice.isLoading;
-export const selectAuthError = (state: RootState) =>
-  state.authSlice.error;
+export const selectAuthError = (state: RootState) => state.authSlice.error;

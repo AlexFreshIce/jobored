@@ -1,44 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { fetchCatalogues } from "../../api";
-import { CataloguesType } from "../../types";
-
-interface IFilterState {
-  filter: {
-    published: number;
-    catalogues: string | null;
-    payment_from: number | null;
-    payment_to: number | null;
-    keyword: string;
-    no_agreement?: number;
-    page: number;
-    count: number;
-  };
-  cataloguesArr: CataloguesType;
-  isLoading: boolean;
-  error: null | {};
-}
+import { FilterStateType } from "./types";
 
 const initialState = {
   filter: {
-    // published: 1,
-    // catalogues: "33",
+    published: 1,
     catalogues: null,
     payment_from: null,
     payment_to: null,
     keyword: "",
-    // no_agreement:1,
     page: 1,
     count: 4,
   },
   cataloguesArr: [],
   isLoading: false,
   error: null,
-} as IFilterState;
+} as FilterStateType;
 
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
-  async (arg: void, api) => {
+  async () => {
     try {
       const response: Response = await fetchCatalogues();
       if (!response.ok) {
@@ -109,6 +91,7 @@ const filterSlice = createSlice({
 });
 
 export default filterSlice.reducer;
+
 export const {
   filterClear,
   filterChangeCatalogues,

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
 import {
   loginUser,
+  refreshToken,
   selectAuthError,
   selectIsAuth,
+  selectTtl,
 } from "../../store/slice/authSlice";
 import { selectFilter } from "../../store/slice/filterSlice";
 import {
@@ -15,8 +17,9 @@ import {
 import { MainPageComponent } from "./MainPage";
 
 export const MainPage: FC = () => {
-  const isAuth = true
-  // const isAuth = useSelector(selectIsAuth);
+  const isAuth = useSelector(selectIsAuth);
+  const ttl = useSelector(selectTtl);
+  const isTokenActive = ttl > Date.now() / 1000;
   const isFilterChange = useSelector(selectFilter);
   const vacancies = useSelector(selectVacancies);
   const dispatch = useDispatch<AppDispatch>();
@@ -25,15 +28,17 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     if (!isAuth) {
-      // dispatch(loginUser());
+      dispatch(loginUser());
+    } else if (!isTokenActive) {
+      dispatch(refreshToken());
     } else {
       dispatch(getAllVacancies());
     }
+
     if (error) {
       navigate("/404");
     }
-  
-  }, [isAuth, isFilterChange, error]);
+  }, [isAuth, isTokenActive, isFilterChange, error]);
 
   return MainPageComponent({
     vacancies,
