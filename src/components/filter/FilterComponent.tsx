@@ -26,15 +26,14 @@ export const FilterComponent: FC<FilterComponentType> = (props) => {
           data-elem="industry-select"
           label="Отрасль"
           placeholder="Выберете отрасль"
+          selectOnBlur
           allowDeselect
-          disabled={filterIsLoading}
           // searchable
           // clearable
+          // initiallyOpened
+          disabled={filterIsLoading}
           onChange={onChangeIndustry}
           value={industryValue}
-          selectOnBlur
-          // nothingFound="Отрасль не найдена"
-          // initiallyOpened
           data={cataloguesArr}
           rightSection={<IconChevronDown size="1rem" />}
           rightSectionWidth={40}

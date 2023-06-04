@@ -30,6 +30,13 @@
   }
 }
 
+.filter .mantine-Select-input {
+  text-overflow: ellipsis;
+}
+.filter .mantine-Select-item {
+  white-space: initial;
+}
+
 .filter .mantine-Select-root {
   margin-bottom: 20px;
 }
