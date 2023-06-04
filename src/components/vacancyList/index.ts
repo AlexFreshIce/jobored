@@ -45,7 +45,9 @@ export const VacancyList: FC<VacancyListType> = (props) => {
   useEffect(() => {
     if (vacanciesCount === 0) {
       const page = currentPage > 2 ? currentPage - 1 : 1;
-      onChangeCurrentPage(page);
+      if (page !== currentPage) {
+        dispatch(changeCurrentPage(page));
+      }
     }
   }, [vacanciesCount]);
 
