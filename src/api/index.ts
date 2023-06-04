@@ -89,7 +89,9 @@ export const fetchFilteredVacancie: FetchFilteredVacancieType = async (
 
 export const fetchCatalogues: FetchCataloguesType = async () => {
   const url = `/api${ENDPOINTS.CATALOGUES}`;
-  return await customFetch(url);
+  return await customFetch(url, "GET", null, {
+    "Content-Type": "application/x-www-form-urlencoded",
+  });
 };
 
 export const fetchAuth: FetchAuthType = async (properties) => {
