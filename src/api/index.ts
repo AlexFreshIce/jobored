@@ -1,34 +1,32 @@
-import {
-  CustomFetchType,
-  CustomURLType,
-  FetchAuthType,
-  FetchCataloguesType,
-  FetchFilteredVacancieType,
-  FetchRefreshTokenType,
-  FetchVacancyByIdType,
-} from "./types";
+import { CustomFetchType, CustomURLType } from "./types";
 
-enum ENDPOINTS {
+export enum ENDPOINTS {
   LOGIN = "/2.0/oauth2/password/",
   REFRESHTOKEN = "/2.0/oauth2/refresh_token/",
   VACANCY = "/2.0/vacancies/",
   CATALOGUES = "/2.0/catalogues/",
 }
 
-const customFetch: CustomFetchType = async (
-  url,
+export const customFetch: CustomFetchType = async (
+  endpoint,
+  clientSecretKey,
+  urlProperties = null,
   method = "GET",
   data = null,
-  headers = null
+  additionalHeaders = null
 ) => {
+  const url = customURL(endpoint, urlProperties);
   const body = data ? JSON.stringify(data) : null;
+  const headers = {
+    Host: "api.superjob.ru",
+    "X-Api-App-Id": clientSecretKey,
+    "Content-Type": "application/x-www-form-urlencoded",
+    ...additionalHeaders,
+  };
   return await fetch(url, {
     method,
     body,
-    headers: {
-      Host: "api.superjob.ru",
-      ...headers,
-    },
+    headers,
   });
 };
 
@@ -42,6 +40,8 @@ export const customURL: CustomURLType = (endpoint, properties = null) => {
       }
       let propertyValue: string | number;
       switch (property) {
+        case "vacancyID":
+          return customURL + properties[property] + "/";
         case "page":
           propertyValue = properties[property] - 1;
           break;
@@ -63,43 +63,4 @@ export const customURL: CustomURLType = (endpoint, properties = null) => {
     customURL += "&no_agreement=1";
   }
   return customURL;
-};
-
-export const fetchVacancyById: FetchVacancyByIdType = async (
-  id,
-  clientSecretKey
-) => {
-  const url = `/api${ENDPOINTS.VACANCY + id}/`;
-  return await customFetch(url, "GET", null, {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "X-Api-App-Id": clientSecretKey,
-  });
-};
-
-export const fetchFilteredVacancie: FetchFilteredVacancieType = async (
-  properties,
-  clientSecretKey
-) => {
-  const url = customURL(ENDPOINTS.VACANCY, properties);
-  return await customFetch(url, "GET", null, {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "X-Api-App-Id": clientSecretKey,
-  });
-};
-
-export const fetchCatalogues: FetchCataloguesType = async () => {
-  const url = `/api${ENDPOINTS.CATALOGUES}`;
-  return await customFetch(url, "GET", null, {
-    "Content-Type": "application/x-www-form-urlencoded",
-  });
-};
-
-export const fetchAuth: FetchAuthType = async (properties) => {
-  const url = customURL(ENDPOINTS.LOGIN, properties);
-  return await customFetch(url);
-};
-
-export const fetchRefreshToken: FetchRefreshTokenType = async (properties) => {
-  const url = customURL(ENDPOINTS.REFRESHTOKEN, properties);
-  return await customFetch(url);
 };

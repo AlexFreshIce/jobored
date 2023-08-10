@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { fetchFilteredVacancie, fetchVacancyById } from "../../api";
+import { ENDPOINTS, customFetch } from "../../api";
 import { VacancyStateType } from "./types";
 
 const favoriteVacanciesFromStorage = localStorage.getItem("favoriteVacancies");
@@ -21,10 +21,20 @@ export const getAllVacancies = createAsyncThunk(
   async (arg: void, api) => {
     const appState = api.getState() as RootState;
     const { filter } = appState.filterSlice;
-    const { client_secret } = appState.authSlice.currentUser;
-
+    const { currentUser, isAuth, accessToken } = appState.authSlice;
+    const { client_secret } = currentUser;
+    const authHeader = isAuth
+      ? { Authorization: `Bearer ${accessToken}` }
+      : null;
     try {
-      const response = await fetchFilteredVacancie(filter, client_secret);
+      const response = await customFetch(
+        ENDPOINTS.VACANCY,
+        client_secret,
+        filter,
+        "GET",
+        null,
+        authHeader
+      );
       if (!response.ok) {
         throw new Error(`Could not fetch vacancie, status: ${response.status}`);
       }
@@ -38,14 +48,28 @@ export const getAllVacancies = createAsyncThunk(
 
 export const getVacancyByID = createAsyncThunk(
   "vacancy/getVacancyByID",
-  async (id: number, api) => {
+  async (vacancyID: number, api) => {
     const appState = api.getState() as RootState;
-    const { client_secret } = appState.authSlice.currentUser;
+    const { currentUser, isAuth, accessToken } = appState.authSlice;
+    const { client_secret } = currentUser;
+    const authHeader = isAuth
+      ? { Authorization: `Bearer ${accessToken}` }
+      : null;
+      
     try {
-      const response = await fetchVacancyById(id, client_secret);
+      const response = await customFetch(
+        ENDPOINTS.VACANCY,
+        client_secret,
+        {
+          vacancyID,
+        },
+        "GET",
+        null,
+        authHeader
+      );
       if (!response.ok) {
         throw new Error(
-          `Could not fetch vacancy id:${id}, status: ${response.status}`
+          `Could not fetch vacancy id:${vacancyID}, status: ${response.status}`
         );
       }
       const data = await response.json();

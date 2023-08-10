@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { fetchCatalogues } from "../../api";
+import { ENDPOINTS, customFetch } from "../../api";
 import { FilterStateType } from "./types";
 
 const initialState = {
@@ -20,9 +20,11 @@ const initialState = {
 
 export const getCataloguesArr = createAsyncThunk(
   "filter/getCataloguesArr",
-  async () => {
+  async (arg: void, api) => {
+    const appState = api.getState() as RootState;
+    const { client_secret } = appState.authSlice.currentUser;
     try {
-      const response: Response = await fetchCatalogues();
+      const response = await customFetch(ENDPOINTS.CATALOGUES, client_secret);
       if (!response.ok) {
         throw new Error(
           `Could not fetch catalogues, status: ${response.status}`

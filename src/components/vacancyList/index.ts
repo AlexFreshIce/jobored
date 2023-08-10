@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store";
+import { selectAuthIsLoading } from "../../store/slice/authSlice";
 import { changeCurrentPage, selectPage } from "../../store/slice/filterSlice";
 import { selectVacancyIsLoading } from "../../store/slice/vacancySlice";
 import { VacancyListComponent } from "./VacancyListComponent";
@@ -12,9 +13,10 @@ const MAX_PAGES = 125;
 export const VacancyList: FC<VacancyListType> = (props) => {
   const { vacancies, isLocalPagination } = props;
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useSelector(selectVacancyIsLoading);
+  const vacancyIsLoading = useSelector(selectVacancyIsLoading);
+  const authIsLoading = useSelector(selectAuthIsLoading);
   const currentPage = useSelector(selectPage);
-
+  const isLoading = vacancyIsLoading || authIsLoading;
   const { objects } = vacancies;
 
   const maxPage = vacancies
