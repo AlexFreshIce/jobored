@@ -21,7 +21,8 @@ export const VacancyPage = () => {
   useEffect(() => {
     if (!error && (!vacancy || vacancy?.id !== Number(vacancyID))) {
       dispatch(getVacancyByID(Number(vacancyID)));
-    } else {
+    }
+    if (error) {
       navigate("/404");
     }
   }, [error]);

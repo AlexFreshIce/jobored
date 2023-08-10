@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { fetchAuth, fetchRefreshToken } from "../../api";
+import {
+  ENDPOINTS,
+  customFetch
+} from "../../api";
 import { AuthStateType } from "./types";
 
 const accessToken = localStorage.getItem("accessToken");
@@ -31,20 +34,19 @@ export const loginUser = createAsyncThunk(
   async (arg: void, api) => {
     const appState = api.getState() as RootState;
     const currentUser = appState.authSlice.currentUser;
-
     try {
-      const response: Response = await fetchAuth(currentUser);
-
+      const response = await customFetch(
+        ENDPOINTS.LOGIN,
+        currentUser.client_secret,
+        currentUser
+      );
       if (!response.ok) {
         throw new Error(`Could not fetch login, status: ${response.status}`);
       }
-
       const data = await response.json();
-
       localStorage.setItem("accessToken", data.access_token);
       localStorage.setItem("ttl", data.ttl);
       localStorage.setItem("refreshToken", data.refresh_token);
-
       return data;
     } catch (e) {
       throw e;
@@ -60,11 +62,15 @@ export const refreshToken = createAsyncThunk(
       ? localStorage.getItem("refreshToken")
       : null;
     try {
-      const response: Response = await fetchRefreshToken({
-        refresh_token: refToken,
-        client_id,
+      const response = await customFetch(
+        ENDPOINTS.REFRESHTOKEN,
         client_secret,
-      });
+        {
+          refresh_token: refToken,
+          client_id,
+          client_secret,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -122,6 +128,7 @@ const authSlice = createSlice({
       .addCase(refreshToken.rejected, (state, action) => {
         state.isAuth = false;
         state.isLoading = false;
+        state.error = action.error;
       })
       .addDefaultCase(() => {});
   },

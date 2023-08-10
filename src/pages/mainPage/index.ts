@@ -7,7 +7,7 @@ import {
   refreshToken,
   selectAuthError,
   selectIsAuth,
-  selectTtl,
+  selectTtl
 } from "../../store/slice/authSlice";
 import { selectFilter } from "../../store/slice/filterSlice";
 import {
@@ -20,7 +20,8 @@ export const MainPage: FC = () => {
   const isAuth = useSelector(selectIsAuth);
   const ttl = useSelector(selectTtl);
   const isTokenActive = ttl > Date.now() / 1000;
-  const isFilterChange = useSelector(selectFilter);
+  const { catalogues, payment_from, payment_to, keyword, page } =
+    useSelector(selectFilter);
   const vacancies = useSelector(selectVacancies);
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector(selectAuthError);
@@ -38,7 +39,16 @@ export const MainPage: FC = () => {
     if (error) {
       navigate("/404");
     }
-  }, [isAuth, isTokenActive, isFilterChange, error]);
+  }, [
+    isAuth,
+    isTokenActive,
+    error,
+    catalogues,
+    payment_from,
+    payment_to,
+    keyword,
+    page,
+  ]);
 
   return MainPageComponent({
     vacancies,
